@@ -48,7 +48,7 @@ export default function Sidebar() {
   if (!sidebarOpen) return null;
 
   return (
-    <aside className="w-64 border-r border-border-subtle bg-page-background h-screen flex flex-col justify-between p-4 transition-all duration-300">
+    <aside className="fixed md:static inset-y-0 left-0 z-50 w-64 border-r border-border-subtle bg-page-background h-screen flex flex-col justify-between p-4 transition-all duration-300 shadow-2xl md:shadow-none">
       <div className="flex flex-col gap-6">
         <div className="flex items-center gap-3 px-2 py-3">
           <div className="w-9 h-9 bg-orange-primary rounded-xl flex items-center justify-center text-white shadow-md shadow-orange-primary/25 shrink-0">

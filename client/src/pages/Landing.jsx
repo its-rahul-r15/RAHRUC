@@ -56,7 +56,7 @@ export default function Landing() {
             className={`
               max-md:fixed max-md:top-0 max-md:right-0 max-md:bottom-0 max-md:z-50 
               max-md:flex max-md:flex-col max-md:justify-start max-md:items-start 
-              max-md:p-8 max-md:bg-white/98 max-md:backdrop-blur-xl max-md:w-80 
+              max-md:p-8 max-md:bg-white max-md:w-80 
               max-md:shadow-2xl max-md:border-l max-md:border-slate-100 
               max-md:transition-transform max-md:duration-300 ease-in-out
               ${mobileMenuOpen ? 'max-md:translate-x-0' : 'max-md:translate-x-full'} 
