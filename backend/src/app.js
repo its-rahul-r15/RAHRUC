@@ -8,6 +8,11 @@ const apiRouter = require('./routes');
 const errorHandler = require('./middlewares/error.middleware');
 const ApiError = require('./utils/ApiError');
 
+const connectDB = require('./config/db');
+
+// Connect to Database
+connectDB();
+
 const app = express();
 
 // Middlewares
