@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap');
+
+:root {
+  --bg-app: #f9fafb;
+  --bg-card: #ffffff;
+  --bg-sidebar: #ffffff;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --border-app: #e5e7eb;
+  --bg-input: #f3f4f6;
+}
+
+.dark {
+  --bg-app: #080c14;
+  --bg-card: #101726;
+  --bg-sidebar: #0b101b;
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --border-app: #1f293d;
+  --bg-input: #1a2336;
+}
+
+@theme {
+  --color-border-subtle: var(--border-app);
+  --color-orange-primary: #f97316;
+  --color-page-background: var(--bg-app);
+  --color-surface-muted: var(--bg-card);
+  --color-amber-warning: #f59e0b;
+  --color-body-text: var(--text-main);
+  --color-dark-button-fill: #262626;
+  --color-green-success: #10b981;
+  --color-heading-text: var(--text-main);
+  --color-muted-text: var(--text-muted);
+  --color-secondary-text: var(--text-muted);
+
+  --font-plus-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
+  --radius-sm: 3px;
+  --radius-base: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-3xl: 36px;
+  --radius-4xl: 44px;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-plus-jakarta);
+  color: var(--text-main);
+}
+
+/* Custom premium scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-app);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: var(--radius-base);
+  opacity: 0.5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-main);
+}
+
+/* Premium SaaS Overrides & Dark Mode compatibility */
+.dark .bg-white {
+  background-color: var(--bg-card) !important;
+}
+
+.dark .text-body-text {
+  color: var(--text-main) !important;
+}
+
+.dark .text-muted-text,
+.dark .text-secondary-text {
+  color: var(--text-muted) !important;
+}
+
+.dark input.bg-white,
+.dark select.bg-white,
+.dark textarea.bg-white,
+.dark input {
+  background-color: var(--bg-input) !important;
+  color: var(--text-main) !important;
+  border-color: var(--border-app) !important;
+}
+
+.dark .border-border-subtle,
+.dark .border-slate-200 {
+  border-color: var(--border-app) !important;
+}
+
+.dark .bg-surface-muted,
+.dark .hover\:bg-surface-muted:hover {
+  background-color: var(--bg-input) !important;
+}
+
+.dark .bg-slate-50 {
+  background-color: var(--bg-input) !important;
+}
+
+.dark .border-slate-100 {
+  border-color: var(--border-app) !important;
+}
+
+.dark .text-slate-700 {
+  color: var(--text-main) !important;
+}
+
+.dark .text-slate-400 {
+  color: var(--text-muted) !important;
+}
+
+/* Unique premium card glow and shadow micro-interactions */
+.bg-white, .bg-surface-muted {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.bg-white:hover, .bg-surface-muted:hover {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .bg-white:hover, .dark .bg-surface-muted:hover {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+}
