@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   password:    { type: String, required: true, select: false },
   avatar:      { type: String, default: null },
   storageUsed: { type: Number, default: 0 },
-  storageLimit:{ type: Number, default: 15 * 1024 * 1024 * 1024 }, // 15GB default
+  storageLimit:{ type: Number, default: 1024 * 1024 * 1024 * 1024 }, // 1TB default
   role:        { type: String, enum: ['user', 'admin'], default: 'user' },
   isVerified:  { type: Boolean, default: false },
   lastLoginAt: { type: Date },

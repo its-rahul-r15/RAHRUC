@@ -11,6 +11,9 @@ import Settings from '../pages/Settings';
 import Vault from '../pages/Vault';
 import PublicView from '../pages/PublicView';
 import Landing from '../pages/Landing';
+import Docs from '../pages/Docs';
+import PrivacyPolicy from '../pages/PrivacyPolicy';
+import TermsOfService from '../pages/TermsOfService';
 import { useAuthStore } from '../store/authStore';
 
 export default function AppRouter() {
@@ -23,6 +26,9 @@ export default function AppRouter() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/shared/:slug" element={<PublicView />} />
+        <Route path="/docs" element={<Docs />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsOfService />} />
 
         {/* Protected URLs */}
         <Route element={<ProtectedRoute />}>
@@ -40,3 +46,4 @@ export default function AppRouter() {
     </BrowserRouter>
   );
 }
+

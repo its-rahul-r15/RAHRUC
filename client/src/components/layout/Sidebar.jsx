@@ -8,7 +8,7 @@ import api from '../../api/axiosInstance';
 export default function Sidebar() {
   const logout = useAuthStore((s) => s.logout);
   const sidebarOpen = useUiStore((s) => s.sidebarOpen);
-  const [storage, setStorage] = useState({ used: 0, limit: 15 * 1024 * 1024 * 1024, percentage: 0 });
+  const [storage, setStorage] = useState({ used: 0, limit: 1024 * 1024 * 1024 * 1024, percentage: 0 });
 
   useEffect(() => {
     const fetchStorage = async () => {

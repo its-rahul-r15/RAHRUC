@@ -190,7 +190,7 @@ function TelegramLinkCard() {
       <div>
         <h3 className="font-plus-jakarta font-semibold text-base text-heading-text">Telegram Account Linking</h3>
         <p className="text-xs text-secondary-text mt-1">
-          Link your MERN account with Telegram to send or forward files directly to the Bot and catalog them instantly.
+          Link your RAHRUC account with Telegram to send or forward files directly to the Bot and catalog them instantly.
         </p>
       </div>
 
