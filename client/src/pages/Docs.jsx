@@ -112,7 +112,7 @@ export default function Docs() {
               <Cloud className="w-4.5 h-4.5" />
             </div>
             <span className="font-extrabold text-lg text-heading-text tracking-tight font-['Plus_Jakarta_Sans',sans-serif]">RAHRUC</span>
-            <span className="bg-orange-primary/10 text-orange-primary text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ml-1.5">CTO Technical Spec</span>
+
           </div>
         </div>
 
@@ -128,7 +128,7 @@ export default function Docs() {
 
       {/* Docs Layout */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-6 lg:px-12 py-10 flex flex-col md:flex-row gap-10">
-        
+
         {/* Left Sidebar Navigation */}
         <aside className="w-full md:w-64 shrink-0 flex flex-col gap-2.5">
           <div className="text-xs font-bold text-slate-400 uppercase tracking-widest px-3 mb-2 font-['Plus_Jakarta_Sans',sans-serif]">Documentation</div>
@@ -137,11 +137,10 @@ export default function Docs() {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-semibold tracking-wide transition-all text-left cursor-pointer ${
-                  activeTab === item.id
+                className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-semibold tracking-wide transition-all text-left cursor-pointer ${activeTab === item.id
                     ? 'bg-orange-primary/10 text-orange-primary shadow-2xs'
                     : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-800'
-                }`}
+                  }`}
               >
                 <item.icon className="w-4.5 h-4.5 shrink-0" />
                 <span>{item.label}</span>
@@ -152,7 +151,7 @@ export default function Docs() {
 
         {/* Content Area */}
         <main className="flex-1 max-w-3xl min-w-0 bg-white border border-zinc-200/60 rounded-2xl p-6 sm:p-10 shadow-2xs">
-          
+
           {/* INTRO PAGE */}
           {activeTab === 'intro' && (
             <div className="space-y-6">
@@ -170,7 +169,7 @@ export default function Docs() {
                 <div className="border border-zinc-200/60 p-5 rounded-xl bg-slate-50/50">
                   <h4 className="font-semibold text-zinc-800 mb-1 text-xs">Metadata Layer (Express + MongoDB)</h4>
                   <p className="text-[11px] text-zinc-500 font-light leading-relaxed">
-                    Saves schema models, virtual folder indexes, users sessions, and Telegram message mapping credentials. 
+                    Saves schema models, virtual folder indexes, users sessions, and Telegram message mapping credentials.
                   </p>
                 </div>
                 <div className="border border-zinc-200/60 p-5 rounded-xl bg-slate-50/50">
@@ -234,7 +233,7 @@ export default function Docs() {
               <p className="text-zinc-600 leading-relaxed font-light">
                 When uploading to the Encrypted Vault, file payloads undergo local client encryption before being transmitted over the wire:
               </p>
-              
+
               <div className="border border-zinc-200 rounded-xl p-5 bg-slate-50/50 space-y-3.5 text-xs text-zinc-700 leading-relaxed font-medium">
                 <p><strong>1. Key Derivation:</strong> A 256-bit salt is generated. Using the user's vault master passcode, a key is derived locally via PBKDF2 with 100,000 iterations and SHA-256 hashing.</p>
                 <p><strong>2. Initial Vector (IV) Generation:</strong> A unique 96-bit (12 bytes) cryptographically secure random Initialization Vector is generated for each file using <code className="bg-white px-1.5 py-0.5 border border-zinc-200 rounded">crypto.getRandomValues()</code>.</p>

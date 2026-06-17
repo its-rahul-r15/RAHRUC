@@ -86,7 +86,7 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-sm font-['Poppins',sans-serif] flex flex-col justify-between overflow-x-hidden selection:bg-orange-primary/10">
-      
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap');
         * { font-family: 'Poppins', sans-serif; }
@@ -142,7 +142,7 @@ export default function Landing() {
           </div>
 
           {/* Menu Links */}
-          <div 
+          <div
             className={`
               max-md:fixed max-md:top-0 max-md:right-0 max-md:bottom-0 max-md:z-50 
               max-md:flex max-md:flex-col max-md:justify-start max-md:items-start 
@@ -163,7 +163,7 @@ export default function Landing() {
                 <X className="w-4 h-4" />
               </button>
             </div>
-            
+
             <a href="#" onClick={() => setMobileMenuOpen(false)} className="max-md:w-full max-md:py-3 max-md:border-b max-md:border-slate-50 hover:text-heading-text transition-colors">Platform</a>
             <a href="#features" onClick={() => setMobileMenuOpen(false)} className="max-md:w-full max-md:py-3 max-md:border-b max-md:border-slate-50 hover:text-heading-text transition-colors">Features</a>
             <a href="#encryption-demo" onClick={() => setMobileMenuOpen(false)} className="max-md:w-full max-md:py-3 max-md:border-b max-md:border-slate-50 hover:text-heading-text transition-colors">Encrypt Demo</a>
@@ -247,7 +247,7 @@ export default function Landing() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-6">
-            
+
             {/* Feature 1 */}
             <div className="relative p-6 md:p-8 flex flex-col gap-4 transition-all duration-300 cursor-pointer bg-white rounded-2xl shadow-xs border border-border-subtle/40 hover:border-orange-primary/30 bg-gradient-to-b from-white to-orange-primary/5 hover:to-orange-primary/10">
               <div className="flex items-center gap-2.5 mb-1">
@@ -411,8 +411,8 @@ export default function Landing() {
             </p>
           </div>
 
-          {/* Visual pipeline — borderless */}
-          <div className="relative" style={{ height: '260px' }}>
+          {/* Visual pipeline — borderless (Desktop) */}
+          <div className="hidden md:block relative" style={{ height: '260px' }}>
             {/* SVG animated pipeline connectors */}
             <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 100 100" preserveAspectRatio="none">
               <defs>
@@ -433,11 +433,11 @@ export default function Landing() {
             {/* Node row */}
             <div className="absolute inset-0 flex items-center justify-between px-[4%]">
               {[
-                { Icon: Monitor,     label: 'Browser',      sub: 'File selected',      bg: 'bg-violet-50',  ico: 'text-violet-600',  border: 'border-violet-200', glow: 'shadow-violet-200'  },
-                { Icon: ShieldCheck, label: 'AES-256',      sub: 'In-browser encrypt', bg: 'bg-orange-50',  ico: 'text-orange-500',  border: 'border-orange-200', glow: 'shadow-orange-200'  },
-                { Icon: Zap,         label: 'RAHRUC API',   sub: 'RAM stream',         bg: 'bg-sky-50',     ico: 'text-sky-500',     border: 'border-sky-200',    glow: 'shadow-sky-200'     },
-                { Icon: Send,        label: 'Telegram Bot', sub: 'Bot API',            bg: 'bg-emerald-50', ico: 'text-emerald-600', border: 'border-emerald-200',glow: 'shadow-emerald-200' },
-                { Icon: HardDrive,   label: 'TG Channel',   sub: 'Stored forever',     bg: 'bg-purple-50',  ico: 'text-purple-600',  border: 'border-purple-200', glow: 'shadow-purple-200'  },
+                { Icon: Monitor, label: 'Browser', sub: 'File selected', bg: 'bg-violet-50', ico: 'text-violet-600', border: 'border-violet-200', glow: 'shadow-violet-200' },
+                { Icon: ShieldCheck, label: 'AES-256', sub: 'In-browser encrypt', bg: 'bg-orange-50', ico: 'text-orange-500', border: 'border-orange-200', glow: 'shadow-orange-200' },
+                { Icon: Zap, label: 'RAHRUC API', sub: 'RAM stream', bg: 'bg-sky-50', ico: 'text-sky-500', border: 'border-sky-200', glow: 'shadow-sky-200' },
+                { Icon: Send, label: 'Telegram Bot', sub: 'Bot API', bg: 'bg-emerald-50', ico: 'text-emerald-600', border: 'border-emerald-200', glow: 'shadow-emerald-200' },
+                { Icon: HardDrive, label: 'TG Channel', sub: 'Stored forever', bg: 'bg-purple-50', ico: 'text-purple-600', border: 'border-purple-200', glow: 'shadow-purple-200' },
               ].map((n, i) => (
                 <div key={i} className="relative flex flex-col items-center gap-3 group z-10">
                   <div
@@ -458,13 +458,37 @@ export default function Landing() {
             </div>
           </div>
 
+          {/* Mobile vertical pipeline (Mobile) */}
+          <div className="block md:hidden space-y-6 relative pl-6 border-l-2 border-slate-200/60 ml-4 py-2">
+            {[
+              { Icon: Monitor, label: 'Browser', sub: 'File selected', bg: 'bg-violet-50', ico: 'text-violet-600', border: 'border-violet-200' },
+              { Icon: ShieldCheck, label: 'AES-256', sub: 'In-browser encrypt', bg: 'bg-orange-50', ico: 'text-orange-500', border: 'border-orange-200' },
+              { Icon: Zap, label: 'RAHRUC API', sub: 'RAM stream', bg: 'bg-sky-50', ico: 'text-sky-500', border: 'border-sky-200' },
+              { Icon: Send, label: 'Telegram Bot', sub: 'Bot API', bg: 'bg-emerald-50', ico: 'text-emerald-600', border: 'border-emerald-200' },
+              { Icon: HardDrive, label: 'TG Channel', sub: 'Stored forever', bg: 'bg-purple-50', ico: 'text-purple-600', border: 'border-purple-200' },
+            ].map((n, i) => (
+              <div key={i} className="relative flex items-center gap-4">
+                <div className="absolute -left-[35px] top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-slate-800 text-white text-[10px] font-bold flex items-center justify-center border-2 border-white shadow">
+                  {i + 1}
+                </div>
+                <div className={`w-12 h-12 rounded-xl ${n.bg} border ${n.border} flex items-center justify-center shrink-0 shadow-xs`}>
+                  <n.Icon className={`w-6 h-6 ${n.ico}`} strokeWidth={1.5} />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-heading-text">{n.label}</p>
+                  <p className="text-xs text-muted-text">{n.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
           {/* Stats strip below */}
           <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { v: '< 800ms',     l: 'Average upload time',  Icon: Zap,         c: 'text-amber-500',   bg: 'bg-amber-50'   },
-              { v: 'AES-GCM-256', l: 'Encryption standard',  Icon: ShieldCheck, c: 'text-orange-500',  bg: 'bg-orange-50'  },
-              { v: '2.0 GB',      l: 'Max single file size', Icon: HardDrive,   c: 'text-sky-500',     bg: 'bg-sky-50'     },
-              { v: '$0.00 / mo',  l: 'Monthly storage cost', Icon: Server,      c: 'text-emerald-600', bg: 'bg-emerald-50' },
+              { v: '< 800ms', l: 'Average upload time', Icon: Zap, c: 'text-amber-500', bg: 'bg-amber-50' },
+              { v: 'AES-GCM-256', l: 'Encryption standard', Icon: ShieldCheck, c: 'text-orange-500', bg: 'bg-orange-50' },
+              { v: '2.0 GB', l: 'Max single file size', Icon: HardDrive, c: 'text-sky-500', bg: 'bg-sky-50' },
+              { v: '$0.00 / mo', l: 'Monthly storage cost', Icon: Server, c: 'text-emerald-600', bg: 'bg-emerald-50' },
             ].map((s, i) => (
               <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white border border-slate-100 hover:border-slate-200 hover:shadow-sm transition-all">
                 <div className={`w-10 h-10 rounded-xl ${s.bg} flex items-center justify-center shrink-0`}>
@@ -480,7 +504,7 @@ export default function Landing() {
         </section>
 
         {/* Interactive Savings Calculator */}
-        <section id="savings-calculator" className="mt-40 bg-white border border-border-subtle/40 rounded-2xl p-8 md:p-12 shadow-xs">
+        <section id="savings-calculator" className="mt-40 bg-transparent py-8 md:py-12">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-12">
             <span className="text-orange-primary font-bold text-xs uppercase tracking-wider">Cost Efficiency Calculator</span>
             <h2 className="header-title font-extrabold text-3xl text-heading-text">Calculate your cloud storage savings</h2>
@@ -491,17 +515,17 @@ export default function Landing() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             {/* Input Slider Card */}
-            <div className="space-y-6 bg-slate-50 p-6 rounded-2xl border border-slate-100">
+            <div className="space-y-6 bg-slate-50 p-6 rounded-2xl">
               <div className="flex justify-between items-center">
                 <span className="font-semibold text-heading-text">Storage Required:</span>
                 <span className="text-lg font-bold text-orange-primary">{gbValue} GB</span>
               </div>
-              <input 
-                type="range" 
-                min="10" 
-                max="2000" 
-                value={gbValue} 
-                onChange={(e) => setGbValue(Number(e.target.value))} 
+              <input
+                type="range"
+                min="10"
+                max="2000"
+                value={gbValue}
+                onChange={(e) => setGbValue(Number(e.target.value))}
                 className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-orange-primary"
               />
               <div className="flex justify-between text-[11px] text-muted-text">
@@ -510,7 +534,7 @@ export default function Landing() {
                 <span>1 TB</span>
                 <span>2 TB</span>
               </div>
-              
+
               <div className="space-y-2.5 pt-4 border-t border-slate-200">
                 <div className="flex items-center gap-2 text-xs">
                   <Shield className="w-4 h-4 text-green-success" />
@@ -556,7 +580,7 @@ export default function Landing() {
         </section>
 
         {/* Architecture Spec Panel */}
-        <section id="architecture" className="mt-40 bg-white border border-border-subtle/40 rounded-2xl p-6 sm:p-12 shadow-xs relative overflow-hidden">
+        <section id="architecture" className="mt-40 bg-transparent py-6 sm:py-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-orange-primary/5 rounded-full blur-3xl pointer-events-none"></div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -590,7 +614,7 @@ export default function Landing() {
               </div>
             </div>
 
-            <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-6 font-mono text-[11.5px] leading-relaxed text-slate-700 overflow-x-auto shadow-2xs">
+            <div className="bg-slate-50 rounded-2xl p-6 font-mono text-[11.5px] leading-relaxed text-slate-700 overflow-x-auto shadow-2xs">
               <div className="flex items-center justify-between border-b border-slate-200 pb-3 mb-4">
                 <span className="text-slate-400">upload_pipeline.go</span>
                 <span className="w-2.5 h-2.5 rounded-full bg-orange-primary"></span>
@@ -620,98 +644,97 @@ export default function Landing() {
           style={{ backgroundImage: 'linear-gradient(to right, #f1f5f9 1px, transparent 1px), linear-gradient(to bottom, #f1f5f9 1px, transparent 1px)', backgroundSize: '28px 28px' }}>
           <div className="absolute inset-0 bg-gradient-to-br from-white/70 to-white/50 pointer-events-none"></div>
           <div className="relative p-8 md:p-12">
-          <div className="text-center mb-14 space-y-3">
-            <span className="inline-flex items-center gap-1.5 text-orange-primary font-semibold text-xs uppercase tracking-widest bg-orange-primary/8 border border-orange-primary/15 px-3 py-1.5 rounded-full">
-              <ShieldCheck className="w-3 h-3" /> Zero-Knowledge Demo
-            </span>
-            <h2 className="header-title font-extrabold text-4xl text-heading-text">Watch AES-256 encrypt your data live</h2>
-            <p className="text-base text-secondary-text max-w-xl mx-auto font-light leading-relaxed">
-              Type anything. Watch it become unreadable ciphertext — entirely in your browser. Our servers never see plaintext.
-            </p>
-          </div>
+            <div className="text-center mb-14 space-y-3">
+              <span className="inline-flex items-center gap-1.5 text-orange-primary font-semibold text-xs uppercase tracking-widest bg-orange-primary/8 border border-orange-primary/15 px-3 py-1.5 rounded-full">
+                <ShieldCheck className="w-3 h-3" /> Zero-Knowledge Demo
+              </span>
+              <h2 className="header-title font-extrabold text-4xl text-heading-text">Watch AES-256 encrypt your data live</h2>
+              <p className="text-base text-secondary-text max-w-xl mx-auto font-light leading-relaxed">
+                Type anything. Watch it become unreadable ciphertext — entirely in your browser. Our servers never see plaintext.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-            {/* Left: Input panel */}
-            <div className="bg-white border border-border-subtle/40 rounded-2xl p-8 shadow-sm space-y-5">
-              <div className="flex items-center gap-3 pb-5 border-b border-slate-100">
-                <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
-                  <ShieldCheck className="w-5 h-5 text-orange-500" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-heading-text">In-Browser Encryption</p>
-                  <p className="text-[11px] text-muted-text">WebCrypto API — AES-GCM-256</p>
-                </div>
-                <div className={`ml-auto flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-full ${
-                  isEncrypting ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-700'
-                }`}>
-                  <span className={`w-1.5 h-1.5 rounded-full ${isEncrypting ? 'bg-orange-500 animate-pulse' : 'bg-green-500'}`}></span>
-                  {isEncrypting ? 'Encrypting' : 'Ready'}
-                </div>
-              </div>
-
-              <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Plaintext</label>
-                <div className="relative">
-                  <input
-                    id="encrypt-input"
-                    type="text"
-                    value={encryptInput}
-                    onChange={(e) => { setEncryptInput(e.target.value); triggerEncrypt(e.target.value); }}
-                    placeholder="Type anything to encrypt..."
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-heading-text outline-none focus:border-orange-primary/50 focus:ring-2 focus:ring-orange-primary/10 transition font-mono"
-                  />
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] text-slate-400 font-mono bg-white border border-slate-100 px-1.5 py-0.5 rounded">UTF-8</span>
-                </div>
-              </div>
-
-              <div className="space-y-2 pt-2">
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Encryption parameters</p>
-                {[
-                  { k: 'Algorithm',   v: 'AES-GCM-256' },
-                  { k: 'Key derive',  v: 'PBKDF2 + SHA-256' },
-                  { k: 'IV mode',     v: 'Random 96-bit per file' },
-                  { k: 'Key storage', v: 'Never — client only' },
-                ].map(r => (
-                  <div key={r.k} className="flex justify-between text-xs">
-                    <span className="text-muted-text">{r.k}</span>
-                    <span className="font-mono font-semibold text-heading-text">{r.v}</span>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+              {/* Left: Input panel */}
+            <div className="bg-white p-8 rounded-2xl shadow-sm space-y-5">
+                <div className="flex items-center gap-3 pb-5 border-b border-slate-100">
+                  <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
+                    <ShieldCheck className="w-5 h-5 text-orange-500" strokeWidth={1.5} />
                   </div>
-                ))}
-              </div>
-            </div>
+                  <div>
+                    <p className="text-sm font-bold text-heading-text">In-Browser Encryption</p>
+                    <p className="text-[11px] text-muted-text">WebCrypto API — AES-GCM-256</p>
+                  </div>
+                  <div className={`ml-auto flex items-center gap-1.5 text-[10px] font-semibold px-2.5 py-1 rounded-full ${isEncrypting ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-700'
+                    }`}>
+                    <span className={`w-1.5 h-1.5 rounded-full ${isEncrypting ? 'bg-orange-500 animate-pulse' : 'bg-green-500'}`}></span>
+                    {isEncrypting ? 'Encrypting' : 'Ready'}
+                  </div>
+                </div>
 
-            {/* Right: Output terminal */}
-            <div className="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
-              {/* Terminal chrome */}
-              <div className="bg-slate-800 px-5 py-3 flex items-center gap-3">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-amber-400/80"></div>
-                  <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                <div>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 block">Plaintext</label>
+                  <div className="relative">
+                    <input
+                      id="encrypt-input"
+                      type="text"
+                      value={encryptInput}
+                      onChange={(e) => { setEncryptInput(e.target.value); triggerEncrypt(e.target.value); }}
+                      placeholder="Type anything to encrypt..."
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3.5 text-sm text-heading-text outline-none focus:border-orange-primary/50 focus:ring-2 focus:ring-orange-primary/10 transition font-mono"
+                    />
+                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] text-slate-400 font-mono bg-white border border-slate-100 px-1.5 py-0.5 rounded">UTF-8</span>
+                  </div>
                 </div>
-                <span className="text-slate-400 text-[11px] font-mono ml-2">rahruc-crypto — zsh</span>
-                <div className="ml-auto flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
-                  <span className="text-[10px] text-slate-400 font-mono">WebCrypto API</span>
+
+                <div className="space-y-2 pt-2">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Encryption parameters</p>
+                  {[
+                    { k: 'Algorithm', v: 'AES-GCM-256' },
+                    { k: 'Key derive', v: 'PBKDF2 + SHA-256' },
+                    { k: 'IV mode', v: 'Random 96-bit per file' },
+                    { k: 'Key storage', v: 'Never — client only' },
+                  ].map(r => (
+                    <div key={r.k} className="flex justify-between text-xs">
+                      <span className="text-muted-text">{r.k}</span>
+                      <span className="font-mono font-semibold text-heading-text">{r.v}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-              {/* Output area */}
-              <div className="bg-[#0d1117] p-6 font-mono text-[11.5px] leading-relaxed min-h-[280px]">
-                <div className="text-slate-500 mb-3">$ rahruc encrypt --algo aes-gcm-256 --stdin</div>
-                <div className="text-slate-400 mb-4">Plaintext: <span className="text-slate-200">{encryptInput || '—'}</span></div>
-                <div className="text-slate-500 mb-1">Ciphertext (hex):</div>
-                <div className="text-green-400 break-all leading-loose">
-                  <span className="text-slate-600">0x</span>{encryptedOutput || '---'}
-                  {isEncrypting && <span className="inline-block w-2 h-3.5 bg-green-400 ml-0.5 align-text-bottom animate-pulse"></span>}
+
+              {/* Right: Output terminal */}
+              <div className="rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+                {/* Terminal chrome */}
+                <div className="bg-slate-800 px-5 py-3 flex items-center gap-3">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-amber-400/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                  </div>
+                  <span className="text-slate-400 text-[11px] font-mono ml-2">rahruc-crypto — zsh</span>
+                  <div className="ml-auto flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                    <span className="text-[10px] text-slate-400 font-mono">WebCrypto API</span>
+                  </div>
                 </div>
-                {!isEncrypting && encryptedOutput && (
-                  <div className="mt-4 text-green-500 text-[11px]">✓ Encryption complete. {encryptedOutput.length} hex chars written.</div>
-                )}
+                {/* Output area */}
+                <div className="bg-[#0d1117] p-6 font-mono text-[11.5px] leading-relaxed min-h-[280px]">
+                  <div className="text-slate-500 mb-3">$ rahruc encrypt --algo aes-gcm-256 --stdin</div>
+                  <div className="text-slate-400 mb-4">Plaintext: <span className="text-slate-200">{encryptInput || '—'}</span></div>
+                  <div className="text-slate-500 mb-1">Ciphertext (hex):</div>
+                  <div className="text-green-400 break-all leading-loose">
+                    <span className="text-slate-600">0x</span>{encryptedOutput || '---'}
+                    {isEncrypting && <span className="inline-block w-2 h-3.5 bg-green-400 ml-0.5 align-text-bottom animate-pulse"></span>}
+                  </div>
+                  {!isEncrypting && encryptedOutput && (
+                    <div className="mt-4 text-green-500 text-[11px]">✓ Encryption complete. {encryptedOutput.length} hex chars written.</div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
         {/* Telegram API Extraction Mockup Guide */}
         <section id="setup-guide" className="mt-40">
@@ -727,13 +750,11 @@ export default function Landing() {
             <div className="space-y-4">
               <button
                 onClick={() => setActiveTab('father')}
-                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${
-                  activeTab === 'father' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
-                }`}
+                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'father' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
+                  }`}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
-                  activeTab === 'father' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
-                }`}>1</div>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${activeTab === 'father' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
+                  }`}>1</div>
                 <div>
                   <h4 className="font-semibold text-sm text-heading-text">Create bot via @BotFather</h4>
                   <p className="text-[11px] text-secondary-text">Message /newbot to retrieve your BOT_TOKEN</p>
@@ -742,13 +763,11 @@ export default function Landing() {
 
               <button
                 onClick={() => setActiveTab('chatid')}
-                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${
-                  activeTab === 'chatid' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
-                }`}
+                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'chatid' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
+                  }`}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
-                  activeTab === 'chatid' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
-                }`}>2</div>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${activeTab === 'chatid' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
+                  }`}>2</div>
                 <div>
                   <h4 className="font-semibold text-sm text-heading-text">Channel & Admin privileges</h4>
                   <p className="text-[11px] text-secondary-text">Create a channel and make the Bot an Admin</p>
@@ -757,13 +776,11 @@ export default function Landing() {
 
               <button
                 onClick={() => setActiveTab('encryption')}
-                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${
-                  activeTab === 'encryption' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
-                }`}
+                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'encryption' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
+                  }`}
               >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${
-                  activeTab === 'encryption' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
-                }`}>3</div>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${activeTab === 'encryption' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
+                  }`}>3</div>
                 <div>
                   <h4 className="font-semibold text-sm text-heading-text">Extract unique Chat ID</h4>
                   <p className="text-[11px] text-secondary-text">Forward a message to GetMyChatID_Bot</p>
@@ -791,7 +808,7 @@ export default function Landing() {
               <div className="bg-[#517da2] text-white px-4 py-3 flex items-center justify-between shadow-sm z-20">
                 <div className="flex items-center gap-3">
                   <ArrowLeft className="w-4 h-4 cursor-pointer text-white/80 hover:text-white" />
-                  
+
                   {activeTab === 'father' && (
                     <>
                       <div className="w-9 h-9 rounded-full bg-[#e39e3b] flex items-center justify-center font-bold text-sm text-white shadow-xs">
@@ -839,7 +856,7 @@ export default function Landing() {
               </div>
 
               {/* Chat Wallpaper Background */}
-              <div 
+              <div
                 className="flex-1 p-4 overflow-y-auto space-y-3.5 text-[11.5px] relative flex flex-col justify-end"
                 style={{
                   backgroundColor: '#e7ebf0',
@@ -991,8 +1008,8 @@ export default function Landing() {
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-green-success shrink-0" /> Zero storage subscription fees</li>
                 </ul>
               </div>
-              <a href="https://github.com" className="w-full py-2.5 text-center bg-slate-100 hover:bg-slate-200 text-body-text rounded-xl font-semibold text-xs mt-8 transition-colors">
-                View GitHub Repository
+              <a href="#" className="w-full py-2.5 text-center bg-slate-100 hover:bg-slate-200 text-body-text rounded-xl font-semibold text-xs mt-8 transition-colors">
+                Coming soon..
               </a>
             </div>
 
@@ -1031,7 +1048,7 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="bg-white border border-border-subtle/40 rounded-2xl shadow-sm overflow-hidden max-w-3xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-sm overflow-hidden max-w-3xl mx-auto">
             {/* Browser chrome */}
             <div className="bg-slate-50 border-b border-slate-200 px-5 py-3.5 flex items-center gap-3">
               <div className="flex gap-1.5 shrink-0">
@@ -1074,15 +1091,13 @@ export default function Landing() {
                   if (f) simulateUpload(f.name, `${(f.size / 1024 / 1024).toFixed(1)} MB`);
                 }}
                 onClick={() => simulateUpload(`report-${Date.now()}.pdf`, `${(Math.random() * 40 + 2).toFixed(1)} MB`)}
-                className={`border-2 border-dashed rounded-xl p-10 text-center transition-all cursor-pointer select-none ${
-                  dragOver
+                className={`border-2 border-dashed rounded-xl p-10 text-center transition-all cursor-pointer select-none ${dragOver
                     ? 'border-orange-primary bg-orange-primary/5 shadow-inner'
                     : 'border-slate-200 hover:border-orange-primary/40 hover:bg-white'
-                }`}
+                  }`}
               >
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-colors ${
-                  dragOver ? 'bg-orange-100' : 'bg-slate-100'
-                }`}>
+                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-colors ${dragOver ? 'bg-orange-100' : 'bg-slate-100'
+                  }`}>
                   <Upload className={`w-6 h-6 transition-colors ${dragOver ? 'text-orange-500' : 'text-slate-400'}`} strokeWidth={1.5} />
                 </div>
                 <p className="text-sm font-semibold text-heading-text mb-1">
@@ -1099,9 +1114,8 @@ export default function Landing() {
                   const isSql = ext === 'sql';
                   return (
                     <div key={i} className="bg-white border border-slate-100 rounded-xl p-3.5 flex items-center gap-4 hover:shadow-xs hover:border-slate-200 transition-all">
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
-                        isZip ? 'bg-violet-50' : isSql ? 'bg-sky-50' : 'bg-orange-50'
-                      }`}>
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${isZip ? 'bg-violet-50' : isSql ? 'bg-sky-50' : 'bg-orange-50'
+                        }`}>
                         {isZip
                           ? <Archive className="w-5 h-5 text-violet-500" strokeWidth={1.5} />
                           : isSql
@@ -1152,33 +1166,33 @@ export default function Landing() {
           style={{ backgroundImage: 'radial-gradient(circle, #e2e8f0 1px, transparent 1px)', backgroundSize: '20px 20px' }}>
           <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-white/80 pointer-events-none"></div>
           <div className="relative">
-          <div className="text-center mb-14 space-y-3">
-            <span className="inline-flex items-center gap-1.5 text-orange-primary font-semibold text-xs uppercase tracking-widest bg-orange-primary/8 border border-orange-primary/15 px-3 py-1.5 rounded-full">
-              <Globe className="w-3 h-3" /> Global Infrastructure
-            </span>
-            <h2 className="header-title font-extrabold text-4xl text-heading-text">Powered by Telegram's global CDN</h2>
-            <p className="text-base text-secondary-text max-w-xl mx-auto font-light leading-relaxed">
-              RAHRUC inherits Telegram's fault-tolerant, multi-datacenter infrastructure — the same backbone serving 700M+ users.
-            </p>
-          </div>
-
-          <div className="bg-white border border-border-subtle/40 rounded-2xl shadow-sm overflow-hidden">
-            {/* Status bar */}
-            <div className="border-b border-slate-100 px-8 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span className="text-sm font-semibold text-heading-text">All systems operational</span>
-              </div>
-              <span className="text-[11px] text-muted-text font-mono">6 regions active · 99.99% uptime</span>
+            <div className="text-center mb-14 space-y-3">
+              <span className="inline-flex items-center gap-1.5 text-orange-primary font-semibold text-xs uppercase tracking-widest bg-orange-primary/8 border border-orange-primary/15 px-3 py-1.5 rounded-full">
+                <Globe className="w-3 h-3" /> Global Infrastructure
+              </span>
+              <h2 className="header-title font-extrabold text-4xl text-heading-text">Powered by Telegram's global CDN</h2>
+              <p className="text-base text-secondary-text max-w-xl mx-auto font-light leading-relaxed">
+                RAHRUC inherits Telegram's fault-tolerant, multi-datacenter infrastructure — the same backbone serving 700M+ users.
+              </p>
             </div>
 
-            {/* Visual topology */}
-            <div className="relative select-none" style={{ height: '420px' }}>
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+              {/* Status bar */}
+              <div className="border-b border-slate-100 px-8 py-4 flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                  <span className="text-sm font-semibold text-heading-text">All systems operational</span>
+                </div>
+                <span className="text-[11px] text-muted-text font-mono">6 regions active · 99.99% uptime</span>
+              </div>
 
-              {/* SVG animated connection lines */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <defs>
-                  <style>{`
+              {/* Visual topology (Desktop) */}
+              <div className="hidden md:block relative select-none" style={{ height: '420px' }}>
+
+                {/* SVG animated connection lines */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <defs>
+                    <style>{`
                     @keyframes dash { to { stroke-dashoffset: -20; } }
                     .flow-line { animation: dash 1.8s linear infinite; }
                     .flow-line-2 { animation: dash 1.8s linear 0.3s infinite; }
@@ -1188,83 +1202,106 @@ export default function Landing() {
                     .flow-line-6 { animation: dash 1.8s linear 1.5s infinite; }
                     .flow-line-7 { animation: dash 1.8s linear 0.45s infinite; }
                   `}</style>
-                </defs>
-                {/* Lines from center (50,50) to each satellite */}
-                <line x1="50" y1="50" x2="13" y2="17" stroke="#ff7a00" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line" />
-                <line x1="50" y1="50" x2="87" y2="12" stroke="#6366f1" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-2" />
-                <line x1="50" y1="50" x2="91" y2="62" stroke="#0ea5e9" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-3" />
-                <line x1="50" y1="50" x2="22" y2="82" stroke="#22c55e" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-4" />
-                <line x1="50" y1="50" x2="85" y2="40" stroke="#ec4899" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-5" />
-                <line x1="50" y1="50" x2="63" y2="85" stroke="#14b8a6" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-6" />
-                {/* India — Mumbai */}
-                <line x1="50" y1="50" x2="65" y2="37" stroke="#f59e0b" strokeWidth="0.45" strokeDasharray="3 2" strokeOpacity="0.45" className="flow-line-7" />
-                {/* Subtle glow at center */}
-                <circle cx="50" cy="50" r="6" fill="none" stroke="#ff7a00" strokeWidth="0.3" strokeOpacity="0.2" />
-                <circle cx="50" cy="50" r="10" fill="none" stroke="#ff7a00" strokeWidth="0.2" strokeOpacity="0.12" />
-              </svg>
+                  </defs>
+                  {/* Lines from center (50,50) to each satellite */}
+                  <line x1="50" y1="50" x2="13" y2="17" stroke="#ff7a00" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line" />
+                  <line x1="50" y1="50" x2="87" y2="12" stroke="#6366f1" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-2" />
+                  <line x1="50" y1="50" x2="91" y2="62" stroke="#0ea5e9" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-3" />
+                  <line x1="50" y1="50" x2="22" y2="82" stroke="#22c55e" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-4" />
+                  <line x1="50" y1="50" x2="85" y2="40" stroke="#ec4899" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-5" />
+                  <line x1="50" y1="50" x2="63" y2="85" stroke="#14b8a6" strokeWidth="0.4" strokeDasharray="3 2" strokeOpacity="0.35" className="flow-line-6" />
+                  {/* India — Mumbai */}
+                  <line x1="50" y1="50" x2="65" y2="37" stroke="#f59e0b" strokeWidth="0.45" strokeDasharray="3 2" strokeOpacity="0.45" className="flow-line-7" />
+                  {/* Subtle glow at center */}
+                  <circle cx="50" cy="50" r="6" fill="none" stroke="#ff7a00" strokeWidth="0.3" strokeOpacity="0.2" />
+                  <circle cx="50" cy="50" r="10" fill="none" stroke="#ff7a00" strokeWidth="0.2" strokeOpacity="0.12" />
+                </svg>
 
-              {/* Center RAHRUC hub */}
-              <div className="absolute z-20" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                {/* Orbit rings */}
-                <div className="orbit-ring absolute w-28 h-28 rounded-full border border-orange-primary/25" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
-                <div className="orbit-ring-2 absolute w-28 h-28 rounded-full border border-orange-primary/15" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
-                {/* Hub icon */}
-                <div className="relative w-16 h-16 rounded-2xl bg-orange-primary shadow-xl shadow-orange-primary/35 flex items-center justify-center ring-4 ring-orange-primary/15 ring-offset-4 ring-offset-white">
-                  <Cloud className="w-7 h-7 text-white" strokeWidth={1.5} />
-                </div>
-                <p className="text-[9px] font-extrabold text-center text-orange-primary mt-2 tracking-widest uppercase">RAHRUC</p>
-              </div>
-
-              {/* Satellite DC nodes */}
-              {[
-                { city: 'New York',   region: 'US East',      latency: '12ms', left: '5%',  top: '10%',  accent: 'border-orange-200 bg-orange-50',  ico: 'text-orange-500',  dot: 'bg-orange-400'  },
-                { city: 'Frankfurt',  region: 'EU Central',   latency: '8ms',  left: '76%', top: '4%',   accent: 'border-violet-200 bg-violet-50',  ico: 'text-violet-500',  dot: 'bg-violet-400'  },
-                { city: 'Singapore',  region: 'SEA',          latency: '14ms', left: '80%', top: '55%',  accent: 'border-sky-200 bg-sky-50',        ico: 'text-sky-500',     dot: 'bg-sky-400'     },
-                { city: 'São Paulo',  region: 'SA East',      latency: '18ms', left: '3%',  top: '73%',  accent: 'border-emerald-200 bg-emerald-50',ico: 'text-emerald-500', dot: 'bg-emerald-400' },
-                { city: 'Tokyo',      region: 'AP Northeast', latency: '11ms', left: '74%', top: '33%',  accent: 'border-pink-200 bg-pink-50',      ico: 'text-pink-500',    dot: 'bg-pink-400'    },
-                { city: 'Sydney',     region: 'AP Southeast', latency: '16ms', left: '55%', top: '78%',  accent: 'border-teal-200 bg-teal-50',      ico: 'text-teal-500',    dot: 'bg-teal-400'    },
-                { city: 'Mumbai',     region: 'IN West',      latency: '6ms',  left: '62%', top: '28%',  accent: 'border-amber-200 bg-amber-50',    ico: 'text-amber-600',   dot: 'bg-amber-400'   },
-              ].map((dc, i) => (
-                <div
-                  key={i}
-                  className={`absolute z-10 flex items-center gap-2.5 px-3 py-2.5 rounded-xl border ${dc.accent} shadow-sm hover:shadow-md transition-shadow cursor-default`}
-                  style={{ left: dc.left, top: dc.top }}
-                >
-                  <div className={`w-8 h-8 rounded-lg ${dc.accent} border flex items-center justify-center shrink-0`}>
-                    <Server className={`w-4 h-4 ${dc.ico}`} strokeWidth={1.5} />
+                {/* Center RAHRUC hub */}
+                <div className="absolute z-20" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                  {/* Orbit rings */}
+                  <div className="orbit-ring absolute w-28 h-28 rounded-full border border-orange-primary/25" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
+                  <div className="orbit-ring-2 absolute w-28 h-28 rounded-full border border-orange-primary/15" style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}></div>
+                  {/* Hub icon */}
+                  <div className="relative w-16 h-16 rounded-2xl bg-orange-primary shadow-xl shadow-orange-primary/35 flex items-center justify-center ring-4 ring-orange-primary/15 ring-offset-4 ring-offset-white">
+                    <Cloud className="w-7 h-7 text-white" strokeWidth={1.5} />
                   </div>
-                  <div>
-                    <p className="text-[11px] font-bold text-heading-text whitespace-nowrap">{dc.city}</p>
-                    <div className="flex items-center gap-1.5">
-                      <span className={`w-1.5 h-1.5 rounded-full ${dc.dot} animate-pulse shrink-0`}></span>
-                      <span className="text-[9px] text-muted-text font-mono">{dc.latency}</span>
+                  <p className="text-[9px] font-extrabold text-center text-orange-primary mt-2 tracking-widest uppercase">RAHRUC</p>
+                </div>
+
+                {/* Satellite DC nodes */}
+                {[
+                  { city: 'New York', region: 'US East', latency: '12ms', left: '5%', top: '10%', accent: 'border-orange-200 bg-orange-50', ico: 'text-orange-500', dot: 'bg-orange-400' },
+                  { city: 'Frankfurt', region: 'EU Central', latency: '8ms', left: '76%', top: '4%', accent: 'border-violet-200 bg-violet-50', ico: 'text-violet-500', dot: 'bg-violet-400' },
+                  { city: 'Singapore', region: 'SEA', latency: '14ms', left: '80%', top: '55%', accent: 'border-sky-200 bg-sky-50', ico: 'text-sky-500', dot: 'bg-sky-400' },
+                  { city: 'São Paulo', region: 'SA East', latency: '18ms', left: '3%', top: '73%', accent: 'border-emerald-200 bg-emerald-50', ico: 'text-emerald-500', dot: 'bg-emerald-400' },
+                  { city: 'Tokyo', region: 'AP Northeast', latency: '11ms', left: '74%', top: '33%', accent: 'border-pink-200 bg-pink-50', ico: 'text-pink-500', dot: 'bg-pink-400' },
+                  { city: 'Sydney', region: 'AP Southeast', latency: '16ms', left: '55%', top: '78%', accent: 'border-teal-200 bg-teal-50', ico: 'text-teal-500', dot: 'bg-teal-400' },
+                  { city: 'Mumbai', region: 'IN West', latency: '6ms', left: '62%', top: '28%', accent: 'border-amber-200 bg-amber-50', ico: 'text-amber-600', dot: 'bg-amber-400' },
+                ].map((dc, i) => (
+                  <div
+                    key={i}
+                    className={`absolute z-10 flex items-center gap-2.5 px-3 py-2.5 rounded-xl border ${dc.accent} shadow-sm hover:shadow-md transition-shadow cursor-default`}
+                    style={{ left: dc.left, top: dc.top }}
+                  >
+                    <div className={`w-8 h-8 rounded-lg ${dc.accent} border flex items-center justify-center shrink-0`}>
+                      <Server className={`w-4 h-4 ${dc.ico}`} strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold text-heading-text whitespace-nowrap">{dc.city}</p>
+                      <div className="flex items-center gap-1.5">
+                        <span className={`w-1.5 h-1.5 rounded-full ${dc.dot} animate-pulse shrink-0`}></span>
+                        <span className="text-[9px] text-muted-text font-mono">{dc.latency}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
-            {/* Stats footer */}
-            <div className="border-t border-slate-100 px-8 py-6 grid grid-cols-3 gap-6">
-              {[
-                { v: '700M+',  l: 'Active Telegram users', Icon: Globe    },
-                { v: '99.99%', l: 'Uptime SLA',            Icon: Activity },
-                { v: '~0ms',   l: 'Additional latency',    Icon: Zap      },
-              ].map((s, i) => (
-                <div key={i} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
-                    <s.Icon className="w-5 h-5 text-slate-500" strokeWidth={1.5} />
+              {/* Mobile grid list of regions (Mobile) */}
+              <div className="block md:hidden p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  { city: 'New York',   region: 'US East',      latency: '12ms', accent: 'border-orange-100 bg-orange-50/50',  ico: 'text-orange-500' },
+                  { city: 'Frankfurt',  region: 'EU Central',   latency: '8ms',  accent: 'border-violet-100 bg-violet-50/50',  ico: 'text-violet-500' },
+                  { city: 'Singapore',  region: 'SEA',          latency: '14ms', accent: 'border-sky-100 bg-sky-50/50',        ico: 'text-sky-500'    },
+                  { city: 'São Paulo',  region: 'SA East',      latency: '18ms', accent: 'border-emerald-100 bg-emerald-50/50',ico: 'text-emerald-500' },
+                  { city: 'Tokyo',      region: 'AP Northeast', latency: '11ms', accent: 'border-pink-100 bg-pink-50/50',      ico: 'text-pink-500'   },
+                  { city: 'Sydney',     region: 'AP Southeast', latency: '16ms', accent: 'border-teal-100 bg-teal-50/50',      ico: 'text-teal-500'   },
+                  { city: 'Mumbai',     region: 'IN West',      latency: '6ms',  accent: 'border-amber-100 bg-amber-50/50',    ico: 'text-amber-600'  },
+                ].map((dc, i) => (
+                  <div key={i} className={`flex items-center gap-3 p-3 rounded-xl border ${dc.accent} shadow-2xs`}>
+                    <div className={`w-8 h-8 rounded-lg ${dc.accent} border flex items-center justify-center shrink-0`}>
+                      <Server className={`w-4 h-4 ${dc.ico}`} strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <p className="text-[11.5px] font-bold text-heading-text">{dc.city}</p>
+                      <p className="text-[9.5px] text-muted-text font-mono">Latency: {dc.latency}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="header-title font-extrabold text-xl text-heading-text">{s.v}</p>
-                    <p className="text-[10px] text-muted-text">{s.l}</p>
+                ))}
+              </div>
+
+              {/* Stats footer */}
+              <div className="border-t border-slate-100 px-8 py-6 grid grid-cols-3 gap-6">
+                {[
+                  { v: '700M+', l: 'Active Telegram users', Icon: Globe },
+                  { v: '99.99%', l: 'Uptime SLA', Icon: Activity },
+                  { v: '~0ms', l: 'Additional latency', Icon: Zap },
+                ].map((s, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
+                      <s.Icon className="w-5 h-5 text-slate-500" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <p className="header-title font-extrabold text-xl text-heading-text">{s.v}</p>
+                      <p className="text-[10px] text-muted-text">{s.l}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
         {/* Interactive FAQ Accordion */}
         <section id="faq" className="mt-40 max-w-3xl mx-auto">
@@ -1340,11 +1377,11 @@ export default function Landing() {
             <p className="text-xs font-bold text-slate-200 uppercase tracking-widest">Product</p>
             <ul className="space-y-2.5">
               {[
-                { label: 'Features',      href: '#features'         },
-                { label: 'Architecture',  href: '#architecture'     },
-                { label: 'Pricing',       href: '#pricing'          },
-                { label: 'Changelog',     href: '#'                 },
-                { label: 'Roadmap',       href: '#'                 },
+                { label: 'Features', href: '#features' },
+                { label: 'Architecture', href: '#architecture' },
+                { label: 'Pricing', href: '#pricing' },
+                { label: 'Changelog', href: '#' },
+                { label: 'Roadmap', href: '#' },
               ].map(l => (
                 <li key={l.label}>
                   <a href={l.href} className="text-sm text-slate-400 hover:text-white transition-colors">{l.label}</a>
@@ -1358,11 +1395,11 @@ export default function Landing() {
             <p className="text-xs font-bold text-slate-200 uppercase tracking-widest">Developers</p>
             <ul className="space-y-2.5">
               {[
-                { label: 'Documentation', href: '/docs'   },
-                { label: 'API Reference', href: '/docs'   },
-                { label: 'Telegram Bot',  href: '#'       },
-                { label: 'SDKs',          href: '#'       },
-                { label: 'Status Page',   href: '#'       },
+                { label: 'Documentation', href: '/docs' },
+                { label: 'API Reference', href: '/docs' },
+                { label: 'Telegram Bot', href: '#' },
+                { label: 'SDKs', href: '#' },
+                { label: 'Status Page', href: '#' },
               ].map(l => (
                 <li key={l.label}>
                   <Link to={l.href} className="text-sm text-slate-400 hover:text-white transition-colors">{l.label}</Link>
@@ -1376,11 +1413,11 @@ export default function Landing() {
             <p className="text-xs font-bold text-slate-200 uppercase tracking-widest">Legal</p>
             <ul className="space-y-2.5">
               {[
-                { label: 'Privacy Policy',    href: '/privacy' },
-                { label: 'Terms of Service',  href: '/terms'   },
-                { label: 'Cookie Policy',     href: '/privacy' },
-                { label: 'Security',          href: '/docs'    },
-                { label: 'Contact Us',        href: 'mailto:rahulkumarsharma776194@gmail.com' },
+                { label: 'Privacy Policy', href: '/privacy' },
+                { label: 'Terms of Service', href: '/terms' },
+                { label: 'Cookie Policy', href: '/privacy' },
+                { label: 'Security', href: '/docs' },
+                { label: 'Contact Us', href: 'mailto:rahulkumarsharma776194@gmail.com' },
               ].map(l => (
                 <li key={l.label}>
                   {l.href.startsWith('mailto') || l.href.startsWith('#')
@@ -1404,7 +1441,7 @@ export default function Landing() {
           </p>
           <div className="flex items-center gap-4">
             <Link to="/privacy" className="text-xs text-slate-500 hover:text-slate-300 transition-colors">Privacy</Link>
-            <Link to="/terms"   className="text-xs text-slate-500 hover:text-slate-300 transition-colors">Terms</Link>
+            <Link to="/terms" className="text-xs text-slate-500 hover:text-slate-300 transition-colors">Terms</Link>
             <a href="https://t.me" target="_blank" rel="noreferrer"
               className="w-7 h-7 rounded-lg bg-slate-800 hover:bg-sky-500/20 border border-slate-700 hover:border-sky-500/40 flex items-center justify-center transition-all group">
               <Send className="w-3.5 h-3.5 text-slate-400 group-hover:text-sky-400" />
