@@ -5,6 +5,20 @@ const api = axios.create({
     withCredentials: true,
 });
 
+// Request interceptor to attach access token
+api.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('accessToken');
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
 // Response interceptor to handle token refresh
 api.interceptors.response.use(
     (response) => response,
@@ -13,11 +27,20 @@ api.interceptors.response.use(
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
             try {
-                await axios.post(
+                const refreshToken = localStorage.getItem('refreshToken');
+                const response = await axios.post(
                     `${api.defaults.baseURL}/auth/refresh`,
-                    {},
+                    { refreshToken },
                     { withCredentials: true }
                 );
+                
+                const { accessToken, refreshToken: newRefreshToken } = response.data.data;
+                localStorage.setItem('accessToken', accessToken);
+                if (newRefreshToken) {
+                    localStorage.setItem('refreshToken', newRefreshToken);
+                }
+                
+                originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
                 return api(originalRequest);
             } catch (refreshError) {
                 // Clear auth state on refresh failure

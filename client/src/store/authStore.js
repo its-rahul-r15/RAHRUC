@@ -11,8 +11,10 @@ export const useAuthStore = create((set) => ({
     set({ isLoading: true, error: null });
     try {
       const response = await api.post('/auth/login', { email, password });
-      const { user } = response.data.data;
+      const { user, accessToken, refreshToken } = response.data.data;
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
       set({ user, isAuthenticated: true, isLoading: false });
       return true;
     } catch (error) {
@@ -46,6 +48,8 @@ export const useAuthStore = create((set) => ({
       console.error('Logout error:', err.message);
     } finally {
       localStorage.removeItem('user');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       set({ user: null, isAuthenticated: false });
     }
   },
@@ -70,6 +74,8 @@ export const useAuthStore = create((set) => ({
 if (typeof window !== 'undefined') {
   window.addEventListener('auth-logout', () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     useAuthStore.setState({ user: null, isAuthenticated: false });
   });
 }
