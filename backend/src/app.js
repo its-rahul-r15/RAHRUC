@@ -22,6 +22,8 @@ app.use(helmet({
 
 const allowedOrigins = [
   'https://rahruc.vercel.app',
+  'https://www.rahruc.online',
+  'https://rahruc.online',
   'http://localhost:5173',
 ];
 if (env.CLIENT_URL) {
