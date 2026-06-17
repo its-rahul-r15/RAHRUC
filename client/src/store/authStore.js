@@ -10,13 +10,9 @@ export const useAuthStore = create((set) => ({
   login: async (email, password) => {
     set({ isLoading: true, error: null });
     try {
-      const response = await api.post('/auth/login', { email, password });
-      const { user, accessToken, refreshToken } = response.data.data;
-      localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
-      set({ user, isAuthenticated: true, isLoading: false });
-      return true;
+      await api.post('/auth/login', { email, password });
+      set({ isLoading: false });
+      return { otpSent: true };
     } catch (error) {
       set({
         error: error.response?.data?.message || 'Login failed',
@@ -31,10 +27,29 @@ export const useAuthStore = create((set) => ({
     try {
       await api.post('/auth/register', { name, email, password });
       set({ isLoading: false });
-      return true;
+      return { otpSent: true };
     } catch (error) {
       set({
         error: error.response?.data?.message || 'Registration failed',
+        isLoading: false,
+      });
+      return false;
+    }
+  },
+
+  verifyOtp: async (email, otp) => {
+    set({ isLoading: true, error: null });
+    try {
+      const response = await api.post('/auth/verify-otp', { email, otp });
+      const { user, accessToken, refreshToken } = response.data.data;
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      set({ user, isAuthenticated: true, isLoading: false });
+      return true;
+    } catch (error) {
+      set({
+        error: error.response?.data?.message || 'OTP verification failed',
         isLoading: false,
       });
       return false;

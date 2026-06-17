@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema({
   storageLimit:{ type: Number, default: 1024 * 1024 * 1024 * 1024 }, // 1TB default
   role:        { type: String, enum: ['user', 'admin'], default: 'user' },
   isVerified:  { type: Boolean, default: false },
+  otpCode:     { type: String, default: null },
+  otpExpiresAt:{ type: Date, default: null },
   lastLoginAt: { type: Date },
   
   // Telegram Inbox Pairing

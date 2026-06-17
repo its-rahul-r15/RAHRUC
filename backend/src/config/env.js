@@ -10,6 +10,7 @@ const envSchema = z.zodSchema ? z.zodSchema : z.object({
   TELEGRAM_BOT_TOKEN: z.string().min(10).optional(),
   TELEGRAM_CHAT_ID: z.string().optional(),
   CLIENT_URL: z.string().url().default('http://localhost:5173'),
+  RESEND_API_KEY: z.string().optional(),
 });
 
 const parseEnv = () => {

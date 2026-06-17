@@ -6,29 +6,49 @@ const asyncHandler = require('../utils/asyncHandler');
 const generateAccessAndRefreshTokens = require('../utils/generateTokens');
 const jwt = require('jsonwebtoken');
 const env = require('../config/env');
+const { sendOtpEmail } = require('../utils/emailService');
+
+const generateOtp = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
 
 const register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
   const existedUser = await User.findOne({ email });
   if (existedUser) {
-    throw new ApiError(409, "User with email already exists");
+    if (existedUser.isVerified) {
+      throw new ApiError(409, "User with email already exists");
+    } else {
+      const otpCode = generateOtp();
+      existedUser.name = name;
+      existedUser.password = password; // pre-save hashes it
+      existedUser.otpCode = otpCode;
+      existedUser.otpExpiresAt = Date.now() + 10 * 60 * 1000;
+      await existedUser.save();
+      await sendOtpEmail(email, otpCode);
+      return res.status(200).json(
+        new ApiResponse(200, { email }, "Verification OTP sent to email")
+      );
+    }
   }
 
-  const user = await User.create({
+  const otpCode = generateOtp();
+  const otpExpiresAt = Date.now() + 10 * 60 * 1000;
+
+  await User.create({
     name,
     email,
     password,
+    isVerified: false,
+    otpCode,
+    otpExpiresAt,
   });
 
-  const createdUser = await User.findById(user._id).select("-password");
+  await sendOtpEmail(email, otpCode);
 
-  if (!createdUser) {
-    throw new ApiError(500, "Something went wrong while registering the user");
-  }
-
-  return res.status(201).json(
-    new ApiResponse(201, createdUser, "User registered successfully")
+  return res.status(200).json(
+    new ApiResponse(200, { email }, "Verification OTP sent to email. Please verify to complete signup.")
   );
 });
 
@@ -45,17 +65,49 @@ const login = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid user credentials");
   }
 
-  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
+  const otpCode = generateOtp();
+  user.otpCode = otpCode;
+  user.otpExpiresAt = Date.now() + 10 * 60 * 1000;
+  await user.save();
 
-  const loggedInUser = await User.findById(user._id).select("-password");
-  loggedInUser.lastLoginAt = new Date();
-  await loggedInUser.save();
+  await sendOtpEmail(email, otpCode);
+
+  return res.status(200).json(
+    new ApiResponse(200, { email }, "Verification OTP sent to email. Please verify to login.")
+  );
+});
+
+const verifyOtp = asyncHandler(async (req, res) => {
+  const { email, otp } = req.body;
+
+  if (!email || !otp) {
+    throw new ApiError(400, "Email and OTP code are required");
+  }
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
+  if (user.otpCode !== otp || user.otpExpiresAt < Date.now()) {
+    throw new ApiError(400, "Invalid or expired verification code");
+  }
+
+  user.otpCode = null;
+  user.otpExpiresAt = null;
+  user.isVerified = true;
+  user.lastLoginAt = new Date();
+  await user.save();
+
+  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
 
   const options = {
     httpOnly: true,
     secure: env.NODE_ENV === "production",
     sameSite: env.NODE_ENV === "production" ? "none" : "lax",
   };
+
+  const loggedInUser = await User.findById(user._id).select("-password");
 
   return res
     .status(200)
@@ -65,7 +117,7 @@ const login = asyncHandler(async (req, res) => {
       new ApiResponse(
         200,
         { user: loggedInUser, accessToken, refreshToken },
-        "User logged in successfully"
+        "Verification successful"
       )
     );
 });
@@ -161,6 +213,7 @@ const generateTelegramLinkToken = asyncHandler(async (req, res) => {
 module.exports = {
   register,
   login,
+  verifyOtp,
   logout,
   refreshAccessToken,
   getCurrentUser,
