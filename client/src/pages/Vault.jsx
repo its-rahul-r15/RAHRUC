@@ -91,7 +91,7 @@ export default function Vault() {
 
   const handleDownloadDecrypted = async (file) => {
     try {
-      const streamUrl = `${import.meta.env.VITE_API_BASE_URL || 'https://rahrucbackend.vercel.app/api/v1'}/files/${file._id}/stream`;
+      const streamUrl = `${import.meta.env.VITE_API_BASE_URL || 'https://rahrucbackend.vercel.app/api/v1'}/files/${file._id}/stream?token=${localStorage.getItem('accessToken')}`;
       const res = await api.get(streamUrl, { responseType: 'arraybuffer' });
       
       const decryptedBuffer = await decryptFile(
