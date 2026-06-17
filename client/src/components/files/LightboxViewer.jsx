@@ -4,7 +4,7 @@ import { X, Download, FileText, File } from 'lucide-react';
 export default function LightboxViewer({ file, onClose }) {
   if (!file) return null;
 
-  const streamUrl = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api/v1'}/files/${file._id}/stream`;
+  const streamUrl = `${import.meta.env.VITE_API_BASE_URL || 'https://rahrucbackend.vercel.app/api/v1'}/files/${file._id}/stream`;
 
   const handleDownload = () => {
     window.open(streamUrl, '_blank');

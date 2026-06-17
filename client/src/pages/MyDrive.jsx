@@ -337,7 +337,7 @@ export default function MyDrive() {
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {files.map((file) => {
                       const thumbUrl = file.thumbnailFileId 
-                        ? `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api/v1'}/files/${file._id}/thumbnail`
+                        ? `${import.meta.env.VITE_API_BASE_URL || 'https://rahrucbackend.vercel.app/api/v1'}/files/${file._id}/thumbnail`
                         : null;
 
                       return (
