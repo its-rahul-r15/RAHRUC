@@ -15,8 +15,17 @@ app.use(helmet({
   crossOriginResourcePolicy: false,
 }));
 
+const allowedOrigins = [
+  'https://rahruc.vercel.app',
+  'http://localhost:5173',
+];
+if (env.CLIENT_URL) {
+  allowedOrigins.push(env.CLIENT_URL);
+  allowedOrigins.push(env.CLIENT_URL.replace(/\/$/, ''));
+}
+
 app.use(cors({
-  origin: env.CLIENT_URL,
+  origin: allowedOrigins,
   credentials: true,
 }));
 
