@@ -130,68 +130,70 @@ export default function Landing() {
         }
       `}</style>
 
+      {/* SaaS Navigation */}
+      <nav className="sticky top-0 z-50 flex items-center justify-between p-4 md:px-16 lg:px-24 xl:px-32 md:py-5 w-full bg-white border-b border-slate-100 shadow-xs">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 bg-orange-primary rounded-xl flex items-center justify-center text-white shadow-md shadow-orange-primary/25">
+            <Cloud className="w-5 h-5" />
+          </div>
+          <span className="header-title font-extrabold text-xl text-heading-text tracking-tight">RAHRUC</span>
+        </div>
+
+        {/* Menu Links */}
+        <div
+          className={`
+            fixed top-0 right-0 bottom-0 z-50 
+            flex flex-col justify-start items-start 
+            p-8 bg-white w-80 
+            shadow-2xl border-l border-slate-100 
+            transition-transform duration-300 ease-in-out
+            ${mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'} 
+            md:static md:flex-row md:items-center 
+            md:p-0 md:bg-transparent md:w-auto 
+            md:shadow-none md:border-none md:translate-x-0
+            md:flex md:gap-8 font-medium text-muted-text
+          `}
+        >
+          {/* Mobile Header Inside Menu */}
+          <div className="md:hidden flex items-center justify-between w-full pb-6 mb-6 border-b border-slate-100">
+            <span className="header-title font-extrabold text-lg text-heading-text">Navigation</span>
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="bg-slate-100 hover:bg-slate-200 text-slate-800 p-2 rounded-full transition"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <Link to="/" onClick={() => setMobileMenuOpen(false)} className="w-full py-3 border-b border-slate-50 md:w-auto md:py-0 md:border-none hover:text-heading-text transition-colors">Home</Link>
+          <a href="#features" onClick={() => setMobileMenuOpen(false)} className="w-full py-3 border-b border-slate-50 md:w-auto md:py-0 md:border-none hover:text-heading-text transition-colors">Features</a>
+          <Link to="/docs" onClick={() => setMobileMenuOpen(false)} className="w-full py-3 border-b border-slate-50 md:w-auto md:py-0 md:border-none hover:text-heading-text transition-colors">Docs</Link>
+          <Link to="/privacy" onClick={() => setMobileMenuOpen(false)} className="w-full py-3 border-b border-slate-50 md:w-auto md:py-0 md:border-none hover:text-heading-text transition-colors">Privacy Policy</Link>
+          <Link to="/terms" onClick={() => setMobileMenuOpen(false)} className="w-full py-3 md:w-auto md:py-0 md:border-none hover:text-heading-text transition-colors">Terms of Service</Link>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <Link to="/login" className="hidden sm:block hover:text-gray-600 font-medium transition-colors">
+            Sign In
+          </Link>
+          <Link
+            to="/register"
+            className="bg-slate-800 hover:bg-black text-white px-5 py-2.5 rounded-full font-semibold transition shadow-xs text-xs"
+          >
+            Get Started
+          </Link>
+        </div>
+
+        <button
+          onClick={() => setMobileMenuOpen(true)}
+          className="md:hidden bg-gray-800 hover:bg-black text-white p-2 rounded-md transition"
+        >
+          <Menu className="w-6 h-6" />
+        </button>
+      </nav>
+
       {/* Hero Header + Action block with Grid Background */}
       <div className="bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gridBackground.png')] bg-no-repeat bg-cover bg-center pb-24 border-b border-border-subtle">
-        {/* SaaS Navigation */}
-        <nav className="flex items-center justify-between p-4 md:px-16 lg:px-24 xl:px-32 md:py-6 w-full bg-white/30 backdrop-blur-md">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-orange-primary rounded-xl flex items-center justify-center text-white shadow-md shadow-orange-primary/25">
-              <Cloud className="w-5 h-5" />
-            </div>
-            <span className="header-title font-extrabold text-xl text-heading-text tracking-tight">RAHRUC</span>
-          </div>
-
-          {/* Menu Links */}
-          <div
-            className={`
-              max-md:fixed max-md:top-0 max-md:right-0 max-md:bottom-0 max-md:z-50 
-              max-md:flex max-md:flex-col max-md:justify-start max-md:items-start 
-              max-md:p-8 max-md:bg-white max-md:w-80 
-              max-md:shadow-2xl max-md:border-l max-md:border-slate-100 
-              max-md:transition-transform max-md:duration-300 ease-in-out
-              ${mobileMenuOpen ? 'max-md:translate-x-0' : 'max-md:translate-x-full'} 
-              md:flex md:items-center md:gap-8 font-medium text-muted-text
-            `}
-          >
-            {/* Mobile Header Inside Menu */}
-            <div className="md:hidden flex items-center justify-between w-full pb-6 mb-6 border-b border-slate-100">
-              <span className="header-title font-extrabold text-lg text-heading-text">Navigation</span>
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="bg-slate-100 hover:bg-slate-200 text-slate-800 p-2 rounded-full transition"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <a href="#" onClick={() => setMobileMenuOpen(false)} className="max-md:w-full max-md:py-3 max-md:border-b max-md:border-slate-50 hover:text-heading-text transition-colors">Platform</a>
-            <a href="#features" onClick={() => setMobileMenuOpen(false)} className="max-md:w-full max-md:py-3 max-md:border-b max-md:border-slate-50 hover:text-heading-text transition-colors">Features</a>
-            <a href="#encryption-demo" onClick={() => setMobileMenuOpen(false)} className="max-md:w-full max-md:py-3 max-md:border-b max-md:border-slate-50 hover:text-heading-text transition-colors">Encrypt Demo</a>
-            <a href="#upload-demo" onClick={() => setMobileMenuOpen(false)} className="max-md:w-full max-md:py-3 max-md:border-b max-md:border-slate-50 hover:text-heading-text transition-colors">Try Upload</a>
-            <a href="#network" onClick={() => setMobileMenuOpen(false)} className="max-md:w-full max-md:py-3 max-md:border-b max-md:border-slate-50 hover:text-heading-text transition-colors">Network</a>
-            <a href="#pricing" onClick={() => setMobileMenuOpen(false)} className="max-md:w-full max-md:py-3 hover:text-heading-text transition-colors">Pricing</a>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Link to="/login" className="hidden sm:block hover:text-gray-600 font-medium transition-colors">
-              Sign In
-            </Link>
-            <Link
-              to="/register"
-              className="bg-slate-800 hover:bg-black text-white px-5 py-2.5 rounded-full font-semibold transition shadow-xs text-xs"
-            >
-              Get Started
-            </Link>
-          </div>
-
-          <button
-            onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden bg-gray-800 hover:bg-black text-white p-2 rounded-md transition"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-        </nav>
-
         {/* Hero content */}
         <div className="px-6 md:px-16 lg:px-24 xl:px-32 text-center mt-12">
           {/* Banner */}
@@ -643,7 +645,7 @@ export default function Landing() {
         <section id="encryption-demo" className="mt-40 rounded-3xl overflow-hidden relative"
           style={{ backgroundImage: 'linear-gradient(to right, #f1f5f9 1px, transparent 1px), linear-gradient(to bottom, #f1f5f9 1px, transparent 1px)', backgroundSize: '28px 28px' }}>
           <div className="absolute inset-0 bg-gradient-to-br from-white/70 to-white/50 pointer-events-none"></div>
-          <div className="relative p-8 md:p-12">
+          <div className="relative p-4 sm:p-8 md:p-12">
             <div className="text-center mb-14 space-y-3">
               <span className="inline-flex items-center gap-1.5 text-orange-primary font-semibold text-xs uppercase tracking-widest bg-orange-primary/8 border border-orange-primary/15 px-3 py-1.5 rounded-full">
                 <ShieldCheck className="w-3 h-3" /> Zero-Knowledge Demo
@@ -656,7 +658,7 @@ export default function Landing() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Left: Input panel */}
-            <div className="bg-white p-8 rounded-2xl shadow-sm space-y-5">
+            <div className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-sm space-y-5">
                 <div className="flex items-center gap-3 pb-5 border-b border-slate-100">
                   <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center">
                     <ShieldCheck className="w-5 h-5 text-orange-500" strokeWidth={1.5} />
@@ -719,7 +721,7 @@ export default function Landing() {
                   </div>
                 </div>
                 {/* Output area */}
-                <div className="bg-[#0d1117] p-6 font-mono text-[11.5px] leading-relaxed min-h-[280px]">
+                <div className="bg-[#0d1117] p-4 sm:p-6 font-mono text-[11.5px] leading-relaxed min-h-[280px]">
                   <div className="text-slate-500 mb-3">$ rahruc encrypt --algo aes-gcm-256 --stdin</div>
                   <div className="text-slate-400 mb-4">Plaintext: <span className="text-slate-200">{encryptInput || '—'}</span></div>
                   <div className="text-slate-500 mb-1">Ciphertext (hex):</div>
