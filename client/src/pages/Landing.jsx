@@ -411,9 +411,7 @@ export default function Landing() {
         </section>
 
         {/* Magic Telegram Pairing & Auto-Inbox Sync (USP Showcase) */}
-        <section id="magic-sync" className="mt-40 bg-gradient-to-br from-orange-primary/5 via-slate-55 to-orange-primary/5 rounded-3xl p-8 md:p-12 border border-orange-primary/10 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-orange-primary/5 rounded-full blur-3xl pointer-events-none"></div>
-
+        <section id="magic-sync" className="mt-40 relative">
           <div className="text-center space-y-3 mb-16">
             <span className="inline-flex items-center gap-1.5 text-orange-primary font-bold text-xs uppercase tracking-widest bg-orange-primary/10 border border-orange-primary/20 px-3.5 py-1.5 rounded-full">
               ✨ FLAGSHIP USP (UNIQUE SELLING POINT)
@@ -424,7 +422,7 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Steps & Explanations */}
             <div className="space-y-4">
               {[
@@ -436,21 +434,21 @@ export default function Landing() {
                 <div
                   key={s.step}
                   onClick={() => { setSyncStep(s.step); setIsPlayingSync(false); }}
-                  className={`p-5 rounded-2xl border transition-all cursor-pointer flex gap-4 items-start ${syncStep === s.step ? 'border-orange-primary bg-white shadow-md shadow-orange-primary/5 scale-[1.01]' : 'border-slate-200 bg-white/40 hover:bg-white/70'
+                  className={`p-4 md:p-5 rounded-2xl border transition-all cursor-pointer flex gap-4 items-start ${syncStep === s.step ? 'border-orange-primary bg-white shadow-sm scale-[1.01]' : 'border-slate-200 bg-white/40 hover:bg-white/70'
                     }`}
                 >
-                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 transition-colors ${syncStep === s.step ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
+                  <div className={`w-8 h-8 md:w-9 md:h-9 rounded-xl flex items-center justify-center font-bold text-xs md:text-sm shrink-0 transition-colors ${syncStep === s.step ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
                     }`}>{s.step}</div>
                   <div>
-                    <h4 className="font-bold text-sm text-heading-text">{s.title}</h4>
-                    <p className="text-xs text-secondary-text mt-1 leading-relaxed">{s.desc}</p>
+                    <h4 className="font-bold text-xs md:text-sm text-heading-text">{s.title}</h4>
+                    <p className="text-[11px] md:text-xs text-secondary-text mt-1 leading-relaxed">{s.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Simulated Live Action Split Mockup */}
-            <div className="bg-white rounded-[32px] p-6 shadow-xl border border-slate-100 flex flex-col gap-6 relative">
+            <div className="flex flex-col gap-6 relative p-0">
               {/* Play / Pause simulation controller */}
               <div className="absolute top-4 right-4 flex items-center gap-2">
                 <button
