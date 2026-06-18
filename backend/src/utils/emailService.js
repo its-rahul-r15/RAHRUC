@@ -33,8 +33,9 @@ const sendOtpEmail = async (to, code) => {
     });
     return response.data;
   } catch (error) {
-    console.error('Failed to send OTP email via Resend:', error.response?.data || error.message);
-    throw new Error('Error sending email verification code');
+    const errorDetails = error.response?.data?.message || error.response?.data || error.message;
+    console.error('Failed to send OTP email via Resend:', errorDetails);
+    throw new Error(`Error sending email verification code: ${typeof errorDetails === 'object' ? JSON.stringify(errorDetails) : errorDetails}`);
   }
 };
 
