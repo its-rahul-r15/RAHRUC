@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema({
   lastLoginAt: { type: Date },
   
   // Telegram Inbox Pairing
-  telegramUserId:    { type: String, default: null, sparse: true, unique: true },
-  telegramLinkToken: { type: String, default: null, sparse: true },
+  telegramUserId:    { type: String, sparse: true, unique: true },
+  telegramLinkToken: { type: String, sparse: true },
   
   // Custom Telegram credentials
   telegramBotToken:  { type: String, default: null },
