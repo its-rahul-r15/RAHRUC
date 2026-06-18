@@ -4,7 +4,7 @@ import { Cloud, Shield, Lock, Send, HardDrive, Key, ArrowRight, Menu, X, ArrowUp
 
 export default function Landing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('father'); // 'father' | 'chatid' | 'encryption'
+  const [activeTab, setActiveTab] = useState('father'); // 'father' | 'chatid' | 'encryption' | 'pairing'
   const [gbValue, setGbValue] = useState(150);
   const [activeFaq, setActiveFaq] = useState(null);
 
@@ -788,6 +788,19 @@ export default function Landing() {
                   <p className="text-[11px] text-secondary-text">Forward a message to GetMyChatID_Bot</p>
                 </div>
               </button>
+
+              <button
+                onClick={() => setActiveTab('pairing')}
+                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'pairing' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
+                  }`}
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${activeTab === 'pairing' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
+                  }`}>4</div>
+                <div>
+                  <h4 className="font-semibold text-sm text-heading-text">Pair Bot & Inbox Auto-Sync</h4>
+                  <p className="text-[11px] text-secondary-text">Use /link command to pair your Telegram account</p>
+                </div>
+              </button>
             </div>
 
             {/* Simulated Telegram App Mockup */}
@@ -845,6 +858,18 @@ export default function Landing() {
                       </div>
                       <div>
                         <p className="text-xs font-semibold">GetMyChatID_Bot</p>
+                        <p className="text-[10px] text-white/70">bot</p>
+                      </div>
+                    </>
+                  )}
+
+                  {activeTab === 'pairing' && (
+                    <>
+                      <div className="w-9 h-9 rounded-full bg-orange-primary flex items-center justify-center font-bold text-sm text-white shadow-xs">
+                        RB
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold">RAHRUC Cloud Bot</p>
                         <p className="text-[10px] text-white/70">bot</p>
                       </div>
                     </>
@@ -970,6 +995,57 @@ export default function Landing() {
                         <p><strong>Chat Title:</strong> My Private Safe</p>
                         <p><strong>Chat ID:</strong> <code className="text-orange-primary font-semibold font-mono bg-slate-55">-1005577166606</code></p>
                         <span className="text-[8px] text-slate-400 block text-right mt-1.5">15:21</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {activeTab === 'pairing' && (
+                  <>
+                    {/* Bot Info */}
+                    <div className="flex flex-col items-center my-2">
+                      <span className="bg-[#b4c7d6]/60 text-white text-[10px] px-3 py-1 rounded-full font-medium shadow-2xs">
+                        Today
+                      </span>
+                    </div>
+
+                    {/* User Command */}
+                    <div className="flex flex-col items-end w-full">
+                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[80%] relative">
+                        <p className="pr-4">/link 6B0901</p>
+                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
+                          15:22 <CheckCheck className="w-3 h-3 text-green-success" />
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bot Success Response */}
+                    <div className="flex gap-2 items-end">
+                      <div className="w-6 h-6 rounded-full bg-orange-primary flex items-center justify-center text-[8px] font-bold text-white shrink-0">RB</div>
+                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
+                        <p className="pb-1 text-[11px] font-semibold text-green-600">✅ Link Successful!</p>
+                        <p>Connected to account: rahul@rahruc.online</p>
+                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:22</span>
+                      </div>
+                    </div>
+
+                    {/* User sends a file */}
+                    <div className="flex flex-col items-end w-full mt-2">
+                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[80%] relative">
+                        <p className="font-semibold text-[11px] text-orange-primary">📄 photo_2026.jpg</p>
+                        <p className="text-[9px] text-slate-400">1.2 MB</p>
+                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
+                          15:23 <CheckCheck className="w-3 h-3 text-green-success" />
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bot Confirmation */}
+                    <div className="flex gap-2 items-end">
+                      <div className="w-6 h-6 rounded-full bg-orange-primary flex items-center justify-center text-[8px] font-bold text-white shrink-0">RB</div>
+                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
+                        <p className="pb-1">✅ Saved! File cataloged under "Telegram Inbox" folder.</p>
+                        <span className="text-[8px] text-slate-400 block text-right mt-1.5">15:23</span>
                       </div>
                     </div>
                   </>
