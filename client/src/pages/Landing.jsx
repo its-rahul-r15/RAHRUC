@@ -4,9 +4,11 @@ import { Cloud, Shield, Lock, Send, HardDrive, Key, ArrowRight, Menu, X, ArrowUp
 
 export default function Landing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('father'); // 'father' | 'chatid' | 'encryption' | 'pairing'
+  const [activeTab, setActiveTab] = useState('father'); // 'father' | 'chatid' | 'encryption'
   const [gbValue, setGbValue] = useState(150);
   const [activeFaq, setActiveFaq] = useState(null);
+  const [syncStep, setSyncStep] = useState(1); // 1: Generate, 2: Link, 3: Forward, 4: Synced
+  const [isPlayingSync, setIsPlayingSync] = useState(true);
 
   // ── Encryption Visualizer state ──
   const [encryptInput, setEncryptInput] = useState('my-secret-document.pdf');
@@ -41,6 +43,14 @@ export default function Landing() {
     triggerEncrypt('my-secret-document.pdf');
     return () => { if (encryptRef.current) clearInterval(encryptRef.current); };
   }, [triggerEncrypt]);
+
+  useEffect(() => {
+    if (!isPlayingSync) return;
+    const interval = setInterval(() => {
+      setSyncStep((prev) => (prev % 4) + 1);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [isPlayingSync]);
 
   // ── Drag & Drop Demo state ──
   const [dragOver, setDragOver] = useState(false);
@@ -400,341 +410,163 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Telegram API Extraction Mockup Guide (Flagship USP) */}
-        <section id="setup-guide" className="mt-40 bg-gradient-to-br from-orange-primary/5 via-transparent to-orange-primary/5 rounded-3xl p-8 md:p-12 border border-orange-primary/10 relative overflow-hidden">
+        {/* Magic Telegram Pairing & Auto-Inbox Sync (USP Showcase) */}
+        <section id="magic-sync" className="mt-40 bg-gradient-to-br from-orange-primary/5 via-slate-55 to-orange-primary/5 rounded-3xl p-8 md:p-12 border border-orange-primary/10 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-80 h-80 bg-orange-primary/5 rounded-full blur-3xl pointer-events-none"></div>
 
           <div className="text-center space-y-3 mb-16">
-            <span className="inline-flex items-center gap-1.5 text-orange-primary font-bold text-[11px] uppercase tracking-widest bg-orange-primary/10 border border-orange-primary/20 px-3.5 py-1.5 rounded-full">
-              ⚡ Flagship Integration (Our USP)
+            <span className="inline-flex items-center gap-1.5 text-orange-primary font-bold text-xs uppercase tracking-widest bg-orange-primary/10 border border-orange-primary/20 px-3.5 py-1.5 rounded-full">
+              ✨ FLAGSHIP USP (UNIQUE SELLING POINT)
             </span>
-            <h2 className="header-title font-extrabold text-3xl md:text-4xl text-heading-text">Pair your Bot & Auto-Catalog everything</h2>
+            <h2 className="header-title font-extrabold text-3xl md:text-4xl text-heading-text">Instant Telegram Bot pairing & Auto-Sync</h2>
             <p className="text-sm md:text-base text-secondary-text max-w-xl mx-auto font-light leading-relaxed">
-              Skip manually uploading files. Send them directly to your personal Telegram Bot — they instantly encrypt and catalog into virtual folders inside your web dashboard.
+              Experience the magic of seamless file sync. Pair your web drive using a 6-digit token and forward any file directly to your bot. Watch it instantly populate inside your web app without manual uploads.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Steps tabs selection */}
+            {/* Steps & Explanations */}
             <div className="space-y-4">
-              <button
-                onClick={() => setActiveTab('father')}
-                className={`w-full text-left p-5 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'father' ? 'border-orange-primary bg-white shadow-md shadow-orange-primary/5 scale-[1.02]' : 'border-slate-200/60 bg-white/40 hover:bg-white/70'
-                  }`}
-              >
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm transition-colors ${activeTab === 'father' ? 'bg-orange-primary text-white' : 'bg-slate-100 text-body-text'
-                  }`}>1</div>
-                <div>
-                  <h4 className="font-bold text-sm text-heading-text">Create bot via @BotFather</h4>
-                  <p className="text-xs text-secondary-text">Message /newbot to retrieve your BOT_TOKEN</p>
+              {[
+                { step: 1, title: "1. Generate Link Token", desc: "Open Settings on your Web Drive Console and click 'Generate Token' to get a secure temporary 6-digit key (e.g. 6B0901)." },
+                { step: 2, title: "2. Send Pairing Message", desc: "Text '/link <token>' directly to your Telegram Bot. The Bot validates the token against our backend and pairs your Telegram ID to your account." },
+                { step: 3, title: "3. Direct Upload / Forwarding", desc: "Simply forward any photo, video, audio, or document from any chat directly into the Bot conversation." },
+                { step: 4, title: "4. Real-time Auto-Cataloging", desc: "The backend captures the file stream, updates your storage quota, and automatically files it inside the 'Telegram Inbox' folder in real time!" }
+              ].map(s => (
+                <div
+                  key={s.step}
+                  onClick={() => { setSyncStep(s.step); setIsPlayingSync(false); }}
+                  className={`p-5 rounded-2xl border transition-all cursor-pointer flex gap-4 items-start ${syncStep === s.step ? 'border-orange-primary bg-white shadow-md shadow-orange-primary/5 scale-[1.01]' : 'border-slate-200 bg-white/40 hover:bg-white/70'
+                    }`}
+                >
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 transition-colors ${syncStep === s.step ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
+                    }`}>{s.step}</div>
+                  <div>
+                    <h4 className="font-bold text-sm text-heading-text">{s.title}</h4>
+                    <p className="text-xs text-secondary-text mt-1 leading-relaxed">{s.desc}</p>
+                  </div>
                 </div>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('chatid')}
-                className={`w-full text-left p-5 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'chatid' ? 'border-orange-primary bg-white shadow-md shadow-orange-primary/5 scale-[1.02]' : 'border-slate-200/60 bg-white/40 hover:bg-white/70'
-                  }`}
-              >
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm transition-colors ${activeTab === 'chatid' ? 'bg-orange-primary text-white' : 'bg-slate-100 text-body-text'
-                  }`}>2</div>
-                <div>
-                  <h4 className="font-bold text-sm text-heading-text">Channel & Admin privileges</h4>
-                  <p className="text-xs text-secondary-text">Create a channel and make the Bot an Admin</p>
-                </div>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('encryption')}
-                className={`w-full text-left p-5 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'encryption' ? 'border-orange-primary bg-white shadow-md shadow-orange-primary/5 scale-[1.02]' : 'border-slate-200/60 bg-white/40 hover:bg-white/70'
-                  }`}
-              >
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm transition-colors ${activeTab === 'encryption' ? 'bg-orange-primary text-white' : 'bg-slate-100 text-body-text'
-                  }`}>3</div>
-                <div>
-                  <h4 className="font-bold text-sm text-heading-text">Extract unique Chat ID</h4>
-                  <p className="text-xs text-secondary-text">Forward a message to GetMyChatID_Bot</p>
-                </div>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('pairing')}
-                className={`w-full text-left p-5 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'pairing' ? 'border-orange-primary bg-white shadow-md shadow-orange-primary/5 scale-[1.02]' : 'border-slate-200/60 bg-white/40 hover:bg-white/70'
-                  }`}
-              >
-                <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm transition-colors ${activeTab === 'pairing' ? 'bg-orange-primary text-white' : 'bg-slate-100 text-body-text'
-                  }`}>4</div>
-                <div>
-                  <h4 className="font-bold text-sm text-heading-text">Pair Bot & Inbox Auto-Sync</h4>
-                  <p className="text-xs text-secondary-text">Use /link command to pair your Telegram account</p>
-                </div>
-              </button>
+              ))}
             </div>
 
-            {/* Simulated Telegram App Mockup */}
-            <div className="relative mx-auto w-full max-w-[380px] bg-[#e7ebf0] border-[10px] border-slate-900 rounded-[45px] overflow-hidden shadow-2xl flex flex-col h-[520px]">
-              {/* Phone Notch/Speaker */}
-              <div className="absolute top-0 inset-x-0 h-4 bg-slate-900 flex justify-center items-center z-30">
-                <div className="w-20 h-3.5 bg-black rounded-b-xl"></div>
+            {/* Simulated Live Action Split Mockup */}
+            <div className="bg-white rounded-[32px] p-6 shadow-xl border border-slate-100 flex flex-col gap-6 relative">
+              {/* Play / Pause simulation controller */}
+              <div className="absolute top-4 right-4 flex items-center gap-2">
+                <button
+                  onClick={() => setIsPlayingSync(p => !p)}
+                  className="px-3 py-1.5 rounded-full text-[10px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition flex items-center gap-1.5 cursor-pointer select-none"
+                >
+                  <span className={`w-2 h-2 rounded-full ${isPlayingSync ? 'bg-green-500 animate-ping' : 'bg-slate-400'}`}></span>
+                  {isPlayingSync ? "Autoplay On" : "Autoplay Paused"}
+                </button>
               </div>
 
-              {/* Telegram Phone Status Bar */}
-              <div className="bg-[#4a6e8d] text-white/90 text-[10px] px-6 pt-5 pb-1 flex justify-between items-center font-sans z-20 select-none">
-                <span>15:20</span>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 bg-white rounded-full opacity-80 inline-block animate-pulse"></span>
-                  <span className="w-3.5 h-2 border border-white rounded-xs opacity-80 inline-block relative after:content-[''] after:absolute after:top-0.5 after:-right-1 after:w-0.5 after:h-1 after:bg-white"></span>
+              {/* MOCKUP 1: WEB DASHBOARD PREVIEW */}
+              <div className="border border-slate-100 rounded-2xl bg-[#fafafa] overflow-hidden flex flex-col shadow-2xs">
+                <div className="bg-slate-100 px-4 py-2 text-[10px] font-mono text-slate-500 border-b border-slate-200 flex items-center justify-between">
+                  <span>RAHRUC Web Console</span>
+                  <div className="flex gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                  </div>
                 </div>
-              </div>
 
-              {/* Real Telegram Header */}
-              <div className="bg-[#517da2] text-white px-4 py-3 flex items-center justify-between shadow-sm z-20">
-                <div className="flex items-center gap-3">
-                  <ArrowLeft className="w-4 h-4 cursor-pointer text-white/85 hover:text-white" />
-
-                  {activeTab === 'father' && (
-                    <>
-                      <div className="w-9 h-9 rounded-full bg-[#e39e3b] flex items-center justify-center font-bold text-sm text-white shadow-xs">
-                        BF
+                <div className="p-4 min-h-[96px] flex flex-col justify-center">
+                  {syncStep === 1 && (
+                    <div className="text-center space-y-2">
+                      <p className="text-xs font-semibold text-slate-700">Settings &gt; Link Telegram</p>
+                      <div className="inline-block bg-orange-primary/5 border border-orange-primary/20 rounded-xl px-4 py-2">
+                        <span className="text-[10px] text-muted-text block">Pairing Token Generated</span>
+                        <strong className="text-orange-primary font-mono text-base tracking-wider">6B0901</strong>
                       </div>
-                      <div>
-                        <div className="flex items-center gap-1">
-                          <p className="text-xs font-semibold">BotFather</p>
-                          <span className="inline-flex items-center justify-center bg-blue-400 text-white rounded-full p-0.5 w-3.5 h-3.5 text-[8px] font-bold">✓</span>
+                    </div>
+                  )}
+
+                  {syncStep === 2 && (
+                    <div className="flex items-center gap-3 justify-center text-slate-500">
+                      <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></div>
+                      <span className="text-xs font-mono font-medium">Waiting for bot command '/link 6B0901'…</span>
+                    </div>
+                  )}
+
+                  {syncStep === 3 && (
+                    <div className="text-center">
+                      <p className="text-xs text-muted-text italic">Account paired. Ready to receive files.</p>
+                      <div className="w-max mx-auto mt-2 bg-slate-200/50 rounded-full h-1.5 w-32 overflow-hidden">
+                        <div className="bg-orange-primary h-full w-2/3 rounded-full animate-pulse"></div>
+                      </div>
+                    </div>
+                  )}
+
+                  {syncStep === 4 && (
+                    <div className="space-y-2">
+                      <p className="text-[11px] font-bold text-slate-700">📁 Telegram Inbox (1 File Synced)</p>
+                      <div className="bg-white border border-green-100 rounded-xl p-2.5 flex items-center gap-3 shadow-2xs animate-pulse">
+                        <div className="w-8 h-8 rounded-lg bg-orange-50 flex items-center justify-center text-orange-500 font-bold flex items-center justify-center">📄</div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[11px] font-bold text-heading-text truncate">photo_2026.jpg</p>
+                          <span className="text-[9px] text-slate-400">1.2 MB · Stored securely</span>
                         </div>
-                        <p className="text-[10px] text-white/70">bot</p>
+                        <span className="text-[9px] bg-green-50 text-green-700 border border-green-200 px-2 py-0.5 rounded-full font-semibold">Synced</span>
                       </div>
-                    </>
+                    </div>
                   )}
-
-                  {activeTab === 'chatid' && (
-                    <>
-                      <div className="w-9 h-9 rounded-full bg-[#0088cc] flex items-center justify-center font-bold text-sm text-white shadow-xs">
-                        RC
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold">RAHRUC Cloud Channel</p>
-                        <p className="text-[10px] text-white/70">private channel</p>
-                      </div>
-                    </>
-                  )}
-
-                  {activeTab === 'encryption' && (
-                    <>
-                      <div className="w-9 h-9 rounded-full bg-[#5288c1] flex items-center justify-center font-bold text-sm text-white shadow-xs">
-                        ID
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold">GetMyChatID_Bot</p>
-                        <p className="text-[10px] text-white/70">bot</p>
-                      </div>
-                    </>
-                  )}
-
-                  {activeTab === 'pairing' && (
-                    <>
-                      <div className="w-9 h-9 rounded-full bg-orange-primary flex items-center justify-center font-bold text-sm text-white shadow-xs">
-                        RB
-                      </div>
-                      <div>
-                        <p className="text-xs font-semibold">RAHRUC Cloud Bot</p>
-                        <p className="text-[10px] text-white/70">bot</p>
-                      </div>
-                    </>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-3 text-white/80">
-                  <Search className="w-4 h-4 cursor-pointer hover:text-white" />
-                  <MoreVertical className="w-4 h-4 cursor-pointer hover:text-white" />
                 </div>
               </div>
 
-              {/* Chat Wallpaper Background */}
-              <div
-                className="flex-1 p-4 overflow-y-auto space-y-3.5 text-[11.5px] relative flex flex-col justify-end"
-                style={{
-                  backgroundColor: '#e7ebf0',
+              {/* MOCKUP 2: TELEGRAM PHONE VIEW */}
+              <div className="border border-slate-100 rounded-2xl bg-[#e7ebf0] overflow-hidden flex flex-col h-[230px]">
+                <div className="bg-[#517da2] text-white px-4 py-2 flex items-center justify-between text-[11px]">
+                  <span className="font-bold flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-green-400"></span>
+                    RAHRUC Cloud Bot
+                  </span>
+                  <span className="text-white/60">bot</span>
+                </div>
+
+                <div className="flex-1 p-3 overflow-y-auto space-y-2.5 text-[10.5px] font-sans flex flex-col justify-end" style={{
                   backgroundImage: 'radial-gradient(#b4c6d4 0.6px, #e7ebf0 0.6px)',
-                  backgroundSize: '12px 12px'
-                }}
-              >
-                {activeTab === 'father' && (
-                  <>
-                    {/* User Command */}
+                  backgroundSize: '10px 10px'
+                }}>
+                  {syncStep >= 2 && (
                     <div className="flex flex-col items-end w-full">
-                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[80%] relative">
-                        <p className="pr-4">/newbot</p>
-                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
-                          15:18 <CheckCheck className="w-3 h-3 text-green-success" />
-                        </span>
+                      <div className="bg-[#effdde] text-slate-800 p-2 rounded-xl rounded-tr-none shadow-2xs max-w-[80%]">
+                        <p className="pr-2">/link 6B0901</p>
                       </div>
                     </div>
+                  )}
 
-                    {/* Bot Father Reply */}
-                    <div className="flex gap-2 items-end">
-                      <div className="w-6 h-6 rounded-full bg-[#e39e3b] flex items-center justify-center text-[8px] font-bold text-white shrink-0">BF</div>
-                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
-                        <p className="pb-1">Alright, a new bot. How are we going to call it? Please choose a name for your bot.</p>
-                        <span className="text-[8px] text-slate-400 block text-right">15:18</span>
+                  {syncStep >= 2 && (
+                    <div className="flex gap-1.5 items-end">
+                      <div className="bg-white text-slate-800 p-2 rounded-xl rounded-bl-none shadow-2xs max-w-[80%]">
+                        <p className="text-green-600 font-semibold">✅ Link Successful!</p>
+                        <p className="text-[9px] text-slate-500">Paired with rahul@rahruc.online</p>
                       </div>
                     </div>
+                  )}
 
-                    {/* User Response */}
+                  {syncStep >= 3 && (
                     <div className="flex flex-col items-end w-full">
-                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[80%] relative">
-                        <p className="pr-4">RAHRUC Space</p>
-                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
-                          15:19 <CheckCheck className="w-3 h-3 text-green-success" />
-                        </span>
+                      <div className="bg-[#effdde] text-slate-800 p-2 rounded-xl rounded-tr-none shadow-2xs max-w-[80%]">
+                        <p className="font-semibold text-orange-primary">📄 photo_2026.jpg</p>
+                        <p className="text-[8px] text-slate-500">1.2 MB</p>
                       </div>
                     </div>
+                  )}
 
-                    {/* Bot Father Final Token */}
-                    <div className="flex gap-2 items-end">
-                      <div className="w-6 h-6 rounded-full bg-[#e39e3b] flex items-center justify-center text-[8px] font-bold text-white shrink-0">BF</div>
-                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
-                        <p className="pb-1.5">Done! Use this token to access the HTTP API:</p>
-                        <p className="font-mono bg-slate-100 p-1.5 text-orange-primary font-semibold rounded break-all select-all">
-                          8528431625:AAGiKvBuZN...
-                        </p>
-                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:19</span>
+                  {syncStep >= 4 && (
+                    <div className="flex gap-1.5 items-end">
+                      <div className="bg-white text-slate-800 p-2 rounded-xl rounded-bl-none shadow-2xs max-w-[80%]">
+                        <p>✅ Saved! File cataloged under "Telegram Inbox" folder.</p>
                       </div>
                     </div>
-                  </>
-                )}
-
-                {activeTab === 'chatid' && (
-                  <>
-                    {/* Channel Setup */}
-                    <div className="flex flex-col items-center my-2">
-                      <span className="bg-[#b4c7d6]/60 text-white text-[10px] px-3 py-1 rounded-full font-medium shadow-2xs">
-                        June 17
-                      </span>
-                    </div>
-
-                    <div className="flex gap-2 items-end">
-                      <div className="w-6 h-6 rounded-full bg-[#0088cc] flex items-center justify-center text-[8px] font-bold text-white shrink-0">RC</div>
-                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
-                        <p className="font-semibold text-[11px] text-[#0088cc] pb-1">System Channel</p>
-                        <p>Channel created. Name: <strong>My Private Safe</strong></p>
-                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:20</span>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2 items-end">
-                      <div className="w-6 h-6 rounded-full bg-[#0088cc] flex items-center justify-center text-[8px] font-bold text-white shrink-0">RC</div>
-                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
-                        <p>Members updated: You, <strong>@RahruCloudBot</strong> added.</p>
-                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:20</span>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2 items-end">
-                      <div className="w-6 h-6 rounded-full bg-[#0088cc] flex items-center justify-center text-[8px] font-bold text-white shrink-0">RC</div>
-                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
-                        <p className="text-slate-500 italic">@RahruCloudBot has been promoted to Administrator with post permissions.</p>
-                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:20</span>
-                      </div>
-                    </div>
-                  </>
-                )}
-
-                {activeTab === 'encryption' && (
-                  <>
-                    {/* User Forward */}
-                    <div className="flex flex-col items-end w-full">
-                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[85%] relative">
-                        <p className="text-[9px] text-green-700 font-semibold border-l-2 border-green-600 pl-1.5 mb-1">
-                          Forwarded from My Private Safe
-                        </p>
-                        <p className="pr-4 pb-1">Hello from my new channel!</p>
-                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
-                          15:21 <CheckCheck className="w-3 h-3 text-green-success" />
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Chat ID Response */}
-                    <div className="flex gap-2 items-end">
-                      <div className="w-6 h-6 rounded-full bg-[#5288c1] flex items-center justify-center text-[8px] font-bold text-white shrink-0">ID</div>
-                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
-                        <p className="font-semibold text-slate-500 pb-1">Chat Details</p>
-                        <p><strong>Chat Title:</strong> My Private Safe</p>
-                        <p><strong>Chat ID:</strong> <code className="text-orange-primary font-semibold font-mono bg-slate-55">-1005577166606</code></p>
-                        <span className="text-[8px] text-slate-400 block text-right mt-1.5">15:21</span>
-                      </div>
-                    </div>
-                  </>
-                )}
-
-                {activeTab === 'pairing' && (
-                  <>
-                    {/* Bot Info */}
-                    <div className="flex flex-col items-center my-2">
-                      <span className="bg-[#b4c7d6]/60 text-white text-[10px] px-3 py-1 rounded-full font-medium shadow-2xs">
-                        Today
-                      </span>
-                    </div>
-
-                    {/* User Command */}
-                    <div className="flex flex-col items-end w-full">
-                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[80%] relative">
-                        <p className="pr-4">/link 6B0901</p>
-                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
-                          15:22 <CheckCheck className="w-3 h-3 text-green-success" />
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Bot Success Response */}
-                    <div className="flex gap-2 items-end">
-                      <div className="w-6 h-6 rounded-full bg-orange-primary flex items-center justify-center text-[8px] font-bold text-white shrink-0">RB</div>
-                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
-                        <p className="pb-1 text-[11px] font-semibold text-green-600">✅ Link Successful!</p>
-                        <p>Connected to account: rahul@rahruc.online</p>
-                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:22</span>
-                      </div>
-                    </div>
-
-                    {/* User sends a file */}
-                    <div className="flex flex-col items-end w-full mt-2">
-                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[80%] relative">
-                        <p className="font-semibold text-[11px] text-orange-primary">📄 photo_2026.jpg</p>
-                        <p className="text-[9px] text-slate-400">1.2 MB</p>
-                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
-                          15:23 <CheckCheck className="w-3 h-3 text-green-success" />
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Bot Confirmation */}
-                    <div className="flex gap-2 items-end">
-                      <div className="w-6 h-6 rounded-full bg-orange-primary flex items-center justify-center text-[8px] font-bold text-white shrink-0">RB</div>
-                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
-                        <p className="pb-1">✅ Saved! File cataloged under "Telegram Inbox" folder.</p>
-                        <span className="text-[8px] text-slate-400 block text-right mt-1.5">15:23</span>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* Bottom input area */}
-              <div className="bg-white p-2 border-t border-slate-200 flex items-center gap-2 z-20 select-none">
-                <Smile className="w-5 h-5 text-slate-400 cursor-pointer hover:text-slate-600 shrink-0" />
-                <div className="flex-1 bg-slate-100 rounded-full px-3 py-1.5 text-xs text-slate-400 flex items-center justify-between">
-                  <span>Message</span>
-                  <Paperclip className="w-4 h-4 text-slate-400 cursor-pointer hover:text-slate-600" />
-                </div>
-                <div className="w-8 h-8 rounded-full bg-[#517da2] flex items-center justify-center text-white cursor-pointer hover:bg-[#43698b] shrink-0">
-                  <Send className="w-3.5 h-3.5 transform rotate-45 -translate-x-0.5 -translate-y-0.5" />
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </section>
-
-        {/* ═══ ANIMATED FILE JOURNEY ═══ */}
         {/* ══ FILE JOURNEY — clean open, no bg ══ */}
         <section id="file-journey" className="mt-40">
           <div className="text-center mb-14 space-y-3">
@@ -1070,7 +902,260 @@ export default function Landing() {
               </div>
             </div>
           </div>
-        </section>        {/* SaaS Pricing Comparison Section */}
+        </section>        {/* Telegram API Extraction Mockup Guide */}
+        <section id="setup-guide" className="mt-40">
+          <div className="text-center space-y-2 mb-16">
+            <h2 className="header-title font-extrabold text-3xl text-heading-text">Visual Setup Workflow</h2>
+            <p className="text-sm text-secondary-text max-w-lg mx-auto font-light">
+              We leverage existing Telegram bot setups. Here is exactly how to extract your credentials.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Steps tabs selection */}
+            <div className="space-y-4">
+              <button
+                onClick={() => setActiveTab('father')}
+                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'father' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
+                  }`}
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${activeTab === 'father' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
+                  }`}>1</div>
+                <div>
+                  <h4 className="font-semibold text-sm text-heading-text">Create bot via @BotFather</h4>
+                  <p className="text-[11px] text-secondary-text">Message /newbot to retrieve your BOT_TOKEN</p>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('chatid')}
+                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'chatid' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
+                  }`}
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${activeTab === 'chatid' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
+                  }`}>2</div>
+                <div>
+                  <h4 className="font-semibold text-sm text-heading-text">Channel & Admin privileges</h4>
+                  <p className="text-[11px] text-secondary-text">Create a channel and make the Bot an Admin</p>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('encryption')}
+                className={`w-full text-left p-4 rounded-2xl border transition-all flex gap-4 items-center ${activeTab === 'encryption' ? 'border-orange-primary bg-white shadow-sm' : 'border-slate-200 bg-white/40 hover:bg-white/70'
+                  }`}
+              >
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${activeTab === 'encryption' ? 'bg-orange-primary text-white' : 'bg-slate-200 text-body-text'
+                  }`}>3</div>
+                <div>
+                  <h4 className="font-semibold text-sm text-heading-text">Extract unique Chat ID</h4>
+                  <p className="text-[11px] text-secondary-text">Forward a message to GetMyChatID_Bot</p>
+                </div>
+              </button>
+            </div>
+
+            {/* Simulated Telegram App Mockup */}
+            <div className="relative mx-auto w-full max-w-[380px] bg-[#e7ebf0] border-8 border-slate-800 rounded-[40px] overflow-hidden shadow-2xl flex flex-col h-[520px]">
+              {/* Phone Notch/Speaker */}
+              <div className="absolute top-0 inset-x-0 h-4 bg-slate-800 flex justify-center items-center z-30">
+                <div className="w-16 h-3 bg-black rounded-b-xl"></div>
+              </div>
+
+              {/* Telegram Phone Status Bar */}
+              <div className="bg-[#4a6e8d] text-white/90 text-[10px] px-6 pt-5 pb-1 flex justify-between items-center font-sans z-20">
+                <span>15:20</span>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-2 h-2 bg-white rounded-full opacity-80 inline-block"></span>
+                  <span className="w-3.5 h-2 border border-white rounded-xs opacity-80 inline-block relative after:content-[''] after:absolute after:top-0.5 after:-right-1 after:w-0.5 after:h-1 after:bg-white"></span>
+                </div>
+              </div>
+
+              {/* Real Telegram Header */}
+              <div className="bg-[#517da2] text-white px-4 py-3 flex items-center justify-between shadow-sm z-20">
+                <div className="flex items-center gap-3">
+                  <ArrowLeft className="w-4 h-4 cursor-pointer text-white/80 hover:text-white" />
+
+                  {activeTab === 'father' && (
+                    <>
+                      <div className="w-9 h-9 rounded-full bg-[#e39e3b] flex items-center justify-center font-bold text-sm text-white shadow-xs">
+                        BF
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-1">
+                          <p className="text-xs font-semibold">BotFather</p>
+                          <span className="inline-flex items-center justify-center bg-blue-400 text-white rounded-full p-0.5 w-3.5 h-3.5 text-[8px] font-bold">✓</span>
+                        </div>
+                        <p className="text-[10px] text-white/70">bot</p>
+                      </div>
+                    </>
+                  )}
+
+                  {activeTab === 'chatid' && (
+                    <>
+                      <div className="w-9 h-9 rounded-full bg-[#0088cc] flex items-center justify-center font-bold text-sm text-white shadow-xs">
+                        RC
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold">RAHRUC Cloud Channel</p>
+                        <p className="text-[10px] text-white/70">private channel</p>
+                      </div>
+                    </>
+                  )}
+
+                  {activeTab === 'encryption' && (
+                    <>
+                      <div className="w-9 h-9 rounded-full bg-[#5288c1] flex items-center justify-center font-bold text-sm text-white shadow-xs">
+                        ID
+                      </div>
+                      <div>
+                        <p className="text-xs font-semibold">GetMyChatID_Bot</p>
+                        <p className="text-[10px] text-white/70">bot</p>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-3 text-white/80">
+                  <Search className="w-4 h-4 cursor-pointer hover:text-white" />
+                  <MoreVertical className="w-4 h-4 cursor-pointer hover:text-white" />
+                </div>
+              </div>
+
+              {/* Chat Wallpaper Background */}
+              <div
+                className="flex-1 p-4 overflow-y-auto space-y-3.5 text-[11.5px] relative flex flex-col justify-end"
+                style={{
+                  backgroundColor: '#e7ebf0',
+                  backgroundImage: 'radial-gradient(#b4c6d4 0.6px, #e7ebf0 0.6px)',
+                  backgroundSize: '12px 12px'
+                }}
+              >
+                {activeTab === 'father' && (
+                  <>
+                    {/* User Command */}
+                    <div className="flex flex-col items-end w-full">
+                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[80%] relative">
+                        <p className="pr-4">/newbot</p>
+                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
+                          15:18 <CheckCheck className="w-3 h-3 text-green-success" />
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bot Father Reply */}
+                    <div className="flex gap-2 items-end">
+                      <div className="w-6 h-6 rounded-full bg-[#e39e3b] flex items-center justify-center text-[8px] font-bold text-white shrink-0">BF</div>
+                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
+                        <p className="pb-1">Alright, a new bot. How are we going to call it? Please choose a name for your bot.</p>
+                        <span className="text-[8px] text-slate-400 block text-right">15:18</span>
+                      </div>
+                    </div>
+
+                    {/* User Response */}
+                    <div className="flex flex-col items-end w-full">
+                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[80%] relative">
+                        <p className="pr-4">RAHRUC Space</p>
+                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
+                          15:19 <CheckCheck className="w-3 h-3 text-green-success" />
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Bot Father Final Token */}
+                    <div className="flex gap-2 items-end">
+                      <div className="w-6 h-6 rounded-full bg-[#e39e3b] flex items-center justify-center text-[8px] font-bold text-white shrink-0">BF</div>
+                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
+                        <p className="pb-1.5">Done! Use this token to access the HTTP API:</p>
+                        <p className="font-mono bg-slate-100 p-1.5 text-orange-primary font-semibold rounded break-all select-all">
+                          8528431625:AAGiKvBuZN...
+                        </p>
+                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:19</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {activeTab === 'chatid' && (
+                  <>
+                    {/* Channel Setup */}
+                    <div className="flex flex-col items-center my-2">
+                      <span className="bg-[#b4c7d6]/60 text-white text-[10px] px-3 py-1 rounded-full font-medium shadow-2xs">
+                        June 17
+                      </span>
+                    </div>
+
+                    <div className="flex gap-2 items-end">
+                      <div className="w-6 h-6 rounded-full bg-[#0088cc] flex items-center justify-center text-[8px] font-bold text-white shrink-0">RC</div>
+                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
+                        <p className="font-semibold text-[11px] text-[#0088cc] pb-1">System Channel</p>
+                        <p>Channel created. Name: <strong>My Private Safe</strong></p>
+                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:20</span>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2 items-end">
+                      <div className="w-6 h-6 rounded-full bg-[#0088cc] flex items-center justify-center text-[8px] font-bold text-white shrink-0">RC</div>
+                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
+                        <p>Members updated: You, <strong>@RahruCloudBot</strong> added.</p>
+                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:20</span>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-2 items-end">
+                      <div className="w-6 h-6 rounded-full bg-[#0088cc] flex items-center justify-center text-[8px] font-bold text-white shrink-0">RC</div>
+                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
+                        <p className="text-slate-500 italic">@RahruCloudBot has been promoted to Administrator with post permissions.</p>
+                        <span className="text-[8px] text-slate-400 block text-right mt-1">15:20</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {activeTab === 'encryption' && (
+                  <>
+                    {/* User Forward */}
+                    <div className="flex flex-col items-end w-full">
+                      <div className="bg-[#effdde] text-slate-800 p-2.5 rounded-[15px] rounded-tr-none shadow-xs max-w-[85%] relative">
+                        <p className="text-[9px] text-green-700 font-semibold border-l-2 border-green-600 pl-1.5 mb-1">
+                          Forwarded from My Private Safe
+                        </p>
+                        <p className="pr-4 pb-1">Hello from my new channel!</p>
+                        <span className="absolute bottom-1 right-2 text-[8px] text-slate-400 flex items-center gap-0.5">
+                          15:21 <CheckCheck className="w-3 h-3 text-green-success" />
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Chat ID Response */}
+                    <div className="flex gap-2 items-end">
+                      <div className="w-6 h-6 rounded-full bg-[#5288c1] flex items-center justify-center text-[8px] font-bold text-white shrink-0">ID</div>
+                      <div className="bg-white text-slate-800 p-2.5 rounded-[15px] rounded-bl-none shadow-xs max-w-[80%] relative">
+                        <p className="font-semibold text-slate-500 pb-1">Chat Details</p>
+                        <p><strong>Chat Title:</strong> My Private Safe</p>
+                        <p><strong>Chat ID:</strong> <code className="text-orange-primary font-semibold font-mono bg-slate-55">-1005577166606</code></p>
+                        <span className="text-[8px] text-slate-400 block text-right mt-1.5">15:21</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Bottom input area */}
+              <div className="bg-white p-2 border-t border-slate-200 flex items-center gap-2 z-20">
+                <Smile className="w-5 h-5 text-slate-400 cursor-pointer hover:text-slate-600 shrink-0" />
+                <div className="flex-1 bg-slate-100 rounded-full px-3 py-1.5 text-xs text-slate-400 flex items-center justify-between">
+                  <span>Message</span>
+                  <Paperclip className="w-4 h-4 text-slate-400 cursor-pointer hover:text-slate-600" />
+                </div>
+                <div className="w-8 h-8 rounded-full bg-[#517da2] flex items-center justify-center text-white cursor-pointer hover:bg-[#43698b] shrink-0">
+                  <Send className="w-3.5 h-3.5 transform rotate-45 -translate-x-0.5 -translate-y-0.5" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SaaS Pricing Comparison Section */}
         <section id="pricing" className="mt-40 max-w-4xl mx-auto">
           <div className="text-center space-y-2 mb-16">
             <h2 className="header-title font-extrabold text-3xl text-heading-text">Flexible hosting architectures</h2>
