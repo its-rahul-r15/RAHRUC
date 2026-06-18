@@ -21,7 +21,7 @@ const sendOtpEmail = async (to, code) => {
 
   try {
     const response = await axios.post('https://api.resend.com/emails', {
-      from: 'RAHRUC <onboarding@resend.dev>',
+      from: env.RESEND_FROM_EMAIL,
       to,
       subject: `RAHRUC Verification Code: ${code}`,
       html: htmlContent

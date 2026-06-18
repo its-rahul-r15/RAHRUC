@@ -11,6 +11,7 @@ const envSchema = z.zodSchema ? z.zodSchema : z.object({
   TELEGRAM_CHAT_ID: z.string().optional(),
   CLIENT_URL: z.string().url().default('http://localhost:5173'),
   RESEND_API_KEY: z.string().optional(),
+  RESEND_FROM_EMAIL: z.string().optional(),
 });
 
 const parseEnv = () => {
